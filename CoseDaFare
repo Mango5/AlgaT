@@ -1,0 +1,18 @@
+** Inserire qui le cose che devono essere gestite **
+
+
+Per quanto riguarda l'albero e l'esecuzione a step:
+  - bisogna inserire i vari messaggi per ogni step, anche i messaggi di errore; verranno visualizzati a lato del disegno
+    dell'albero per spiegare all'utente i vari passi
+  - grafica dei nodi 
+  - grafica dell'esecuzione (es. evidenziare il nodo che si sta visitando)
+  - riguardare la classe e tenere solo le funzioni utili (alcune secondo me sono in più)
+
+Per quanto riguarda il tutorial:
+  - risolvere il problema di caricare la grafica (eventualmente farlo in JavaFx)
+  - gestire i controller per i vari eventi
+  - collegamento alla parte di autoapprendimento
+  
+  
+  
+** Inserire qui le cose già gestite **
