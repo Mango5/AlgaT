@@ -17,13 +17,18 @@ Per quanto riguarda l'albero e l'esecuzione a step:
     dell'albero per spiegare all'utente i vari passi
   - grafica dei nodi 
   - grafica dell'esecuzione (es. evidenziare il nodo che si sta visitando)
-  - riguardare la classe e tenere solo le funzioni utili (alcune secondo me sono in più)
+  - riguardare la classe; la classe estende la classe degli alberi binari di ricerca
 
 Per quanto riguarda il tutorial:
-  - risolvere il problema di caricare la grafica (eventualmente farlo in JavaFx)
   - gestire i controller per i vari eventi
   - collegamento alla parte di autoapprendimento
+  - gestire il caricamento differenziato (primo o secondo tutorial)
+  - gestire l'evento click dei bottoni
+  - domanda: se all'aprirsi del tutorial carichiamo l'albero da un file di testo?
   
+    
+  Per quanto riguarda la pagina iniziale:
+  - riempire la pagina con adeguata introduzione e spiegazione e/o altro
   
   
 ** Inserire qui le cose già gestite **
@@ -34,6 +39,16 @@ Per quanto riguarda l'albero:
   - inseriemento, cancellazione, ricerca 
   - bilanciamento, rotazione
   - funzioni ausiliarie
+  
+  Per quanto riguarda il tutorial:
+  - collegamento alla pagina principale
+  - design responsive
+  
+  
+  Per quanto riguarda la pagina iniziale:
+  - collegamento ai tutorial
+  
+  
   
   
   
