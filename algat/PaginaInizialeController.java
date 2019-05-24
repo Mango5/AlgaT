@@ -67,7 +67,7 @@ public class PaginaInizialeController implements Initializable {
 	@Override public void handle(ActionEvent e){
             try {
                 Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)e.getSource()).getScene().getWindow();
-                BorderPane root = FXMLLoader.load(getClass().getResource("Tutorial.fxml")); 
+                BorderPane root = FXMLLoader.load(getClass().getResource("fxml/Tutorial.fxml")); 
                   Scene scene = new Scene(root,sceneWidth,sceneHeight);
                 stageTheEventSourceNodeBelongs.setScene(scene);
             } catch (IOException ex) {
@@ -80,7 +80,7 @@ public class PaginaInizialeController implements Initializable {
 	@Override public void handle(ActionEvent e){
             try {
                 Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)e.getSource()).getScene().getWindow();
-                BorderPane root = FXMLLoader.load(getClass().getResource("Tutorial.fxml")); 
+                BorderPane root = FXMLLoader.load(getClass().getResource("fxml/Tutorial.fxml")); 
                   Scene scene = new Scene(root,sceneWidth,sceneHeight);
                 stageTheEventSourceNodeBelongs.setScene(scene);
             } catch (IOException ex) {

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="algat.TutorialController">
+   <top>
+      <Pane prefHeight="78.0" prefWidth="600.0" style="-fx-background-color: lightblue;" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane layoutY="38.0" prefHeight="40.0" prefWidth="600.0">
+               <children>
+                  <Button fx:id="btnFind" layoutX="174.0" layoutY="7.0" mnemonicParsing="false" onMouseClicked="#btnFind_Clicked" prefHeight="27.0" prefWidth="54.0" style="-fx-background-color: white;" text="Find" />
+                  <Button fx:id="btnBack" layoutX="376.0" layoutY="7.0" mnemonicParsing="false" style="-fx-background-color: black;" text="&lt;&lt; Step back" textFill="WHITE" />
+                  <Button fx:id="btnForward" layoutX="481.0" layoutY="7.0" mnemonicParsing="false" style="-fx-background-color: black;" text="Step forward &gt;&gt;" textFill="WHITE" />
+                  <Button fx:id="bntInsert" layoutX="234.0" layoutY="7.0" mnemonicParsing="false" onMouseClicked="#btnInsert_Clicked" style="-fx-background-color: white;" text="Insert" />
+                  <Button fx:id="btnDelete" layoutX="293.0" layoutY="7.0" mnemonicParsing="false" onMouseClicked="#btnDelete_Clicked" style="-fx-background-color: white;" text="Delete" />
+                  <TextField fx:id="txtValore" layoutY="7.0" promptText="inserire valore" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="38.0" prefWidth="600.0">
+               <children>
+                  <Text fx:id="txtTitle" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tutorial - Lezione " textAlignment="CENTER" wrappingWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.142578125">
+                     <font>
+                        <Font name="Comic Sans MS" size="28.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+         </children>
+      </Pane>
+   </top>
+   <bottom>
+      <AnchorPane prefHeight="36.0" prefWidth="600.0" style="-fx-background-color: lightblue;" BorderPane.alignment="CENTER">
+         <children>
+            <Hyperlink fx:id="hlDomande" alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Domande di autoapprendimento" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="6.0">
+               <font>
+                  <Font name="Comic Sans MS" size="18.0" />
+               </font>
+            </Hyperlink>
+            <Hyperlink fx:id="hlPaginaIniziale" text="Pagina Iniziale" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="6.0">
+               <font>
+                  <Font name="Comic Sans MS" size="18.0" />
+               </font>
+            </Hyperlink>
+         </children>
+      </AnchorPane>
+   </bottom>
+   <left>
+      <Pane fx:id="pnComments" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" BorderPane.alignment="CENTER" />
+   </left>
+   <center>
+      <Pane fx:id="pnTree" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" BorderPane.alignment="CENTER" />
+   </center>
+ </BorderPane>

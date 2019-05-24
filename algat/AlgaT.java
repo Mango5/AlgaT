@@ -26,7 +26,7 @@ public class AlgaT extends Application {
         
         
         
-       BorderPane root = FXMLLoader.load(getClass().getResource("PaginaIniziale.fxml"));
+       BorderPane root = FXMLLoader.load(getClass().getResource("fxml/PaginaIniziale.fxml"));
 
    
        // Responsive Design
