@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package algat;
 
 import javafx.application.Application;
@@ -12,10 +7,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-/**
- *
- * @author chiaramengoli
- */
 public class AlgaT extends Application {
     
     int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
@@ -23,13 +14,10 @@ public class AlgaT extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {    
-        
-        
-        
-       BorderPane root = FXMLLoader.load(getClass().getResource("fxml/PaginaIniziale.fxml"));
+       
+    	BorderPane root = FXMLLoader.load(getClass().getResource("fxml/PaginaIniziale.fxml"));
 
-   
-       // Responsive Design
+        // Responsive Design
         int sceneWidth = 0;
         int sceneHeight = 0;
         if (screenWidth <= 800 && screenHeight <= 600) {

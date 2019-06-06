@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package algat;
 import algat.tree.RedBlackTree;
 import javafx.scene.Group;
@@ -11,10 +6,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
-/**
- *
- * @author chiaramengoli
- */
 public class GraficaAlbero {
     double rootX;
     double rootY;
@@ -95,4 +86,6 @@ public class GraficaAlbero {
                     this.DisegnaFiglioSx(redblack.root.left.key, redblack.root.left.color , rootX, rootY, group);
         }
     }
+    
+    
 }
