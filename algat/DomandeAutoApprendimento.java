@@ -34,7 +34,7 @@ public class DomandeAutoApprendimento implements EventHandler<ActionEvent>  {
 		label[0]=new Label();												//una casella di testo per la risposta e un bottone per verificarla
 		this.label[1]=new Label();											//inoltre carica il file dove sono contenute le informzaioni
 		this.testo=new TextField();
-		this.file=new FileReader("Untitled.pages"); 
+		this.file=new FileReader(""); 
 		this.reader=new BufferedReader(file);
 		this.stage=new Stage();
 		this.Spiegazione=false;

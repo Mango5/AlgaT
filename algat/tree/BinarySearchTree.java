@@ -11,7 +11,7 @@ package algat.tree;
  */
 public class BinarySearchTree {
  
-	public static  Node root;
+	public   Node root;
         
 	public BinarySearchTree(){
 		this.root = null;
@@ -167,11 +167,11 @@ public class BinarySearchTree {
 		b.display(root);
 	}
 
-    static class Node {
-        int key;
-	Node left;
-        Node right;
-        Node parent;
+    public class Node {
+       public int key;
+	public Node left;
+       public Node right;
+       public Node parent;
         public Node(int data) {
             this.key=data;
             left = null;

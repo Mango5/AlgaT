@@ -19,6 +19,8 @@ import javafx.scene.control.*;
 import javafx.scene.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -48,6 +50,7 @@ public class TutorialController implements Initializable {
     @FXML Hyperlink hlPaginaIniziale;
     @FXML private URL location;
     @FXML Text txtTitle;
+    @FXML Pane pnTree;
     @FXML  private ResourceBundle resources;
       
     
@@ -59,6 +62,15 @@ public class TutorialController implements Initializable {
         this.location=url;
         this.resources = rb;
         
+        GraficaAlbero tree= new GraficaAlbero();
+       Group group= new Group();
+       tree.DisegnaRadice(10, group);
+       tree.DisegnaFiglioSx(4, Color.RED, (double)200, (double)50, group);
+        tree.DisegnaFiglioDx(12, Color.RED, (double)200, (double)50, group);
+       
+       
+         pnTree.getChildren().add(group);
+         
         // settare il titolo e la visibilità dei pulsanti in base al tutorial selezionato
       /*  if(true){
             txtTitle.setText("Tutorial - Lezione 1");

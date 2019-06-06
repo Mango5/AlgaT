@@ -22,13 +22,13 @@ public class RedBlackTree extends BinarySearchTree{
     {
     }
     
-     protected class Node extends BinarySearchTree.Node
+     public class Nodo extends BinarySearchTree.Node
     {
          //un nodo può avere colore rosso o nero
-         protected Color color;
+         public Color color;
          
          //inizializzo un nuovo nodo con chiave (@param data), di colore rosso e con i figli null
-         public Node(int data)
+         public Nodo(int data)
 	{
 	    super(data);
 	    this.color = RED;
@@ -41,68 +41,72 @@ public class RedBlackTree extends BinarySearchTree{
 	root = null;
     }
     
+    public void setRoot(int key){
+        root= new Node(30);
+    }
+    
     //INSERIMENTO
 
     //inseriamo un nuovo nodo con chiave (@param key) nell'albero
       protected void treeInsert(int key)
     { 
-	Node newNode = (Node)super.insert(key);
+	Nodo newNode = (Nodo)super.insert(key);
 	insertFixup(newNode);
     }
       //Ripristiniamo le condizioni di colore (rosso-nero) dell'albero dopo l'inserimento di un nodo.
-       protected void insertFixup(Node newNode)
+       protected void insertFixup(Nodo newNode)
     {
-	Node y = null;
+	Nodo y = null;
 
-	while (((Node) newNode.parent).color == RED) {
+	while (((Nodo) newNode.parent).color == RED) {
 	    if (newNode.parent == newNode.parent.parent.left) {
-		y = (Node) newNode.parent.parent.right;
+		y = (Nodo) newNode.parent.parent.right;
 		if (y.color == RED) {
-		    ((Node) newNode.parent).color = BLACK;
+		    ((Nodo) newNode.parent).color = BLACK;
 		    y.color = BLACK;
-		    ((Node) newNode.parent.parent).color = RED;
-		    newNode = (Node) newNode.parent.parent;
+		    ((Nodo) newNode.parent.parent).color = RED;
+		    newNode = (Nodo) newNode.parent.parent;
 		}
 		else {
 		    if (newNode ==  newNode.parent.right) {
-			newNode = (Node) newNode.parent;
+			newNode = (Nodo) newNode.parent;
 			leftRotate(newNode);
 		    }
 		    
-		    ((Node) newNode.parent).color = BLACK;
-		    ((Node) newNode.parent.parent).color = RED;
-		    rightRotate((Node) newNode.parent.parent);
+		    ((Nodo) newNode.parent).color = BLACK;
+		    ((Nodo) newNode.parent.parent).color = RED;
+		    rightRotate((Nodo) newNode.parent.parent);
 		}
 	    }
 	    else {
-		y = (Node) newNode.parent.parent.left;
+		y = (Nodo) newNode.parent.parent.left;
 		if (y.color == RED) {
-		    ((Node) newNode.parent).color = BLACK;
+		    ((Nodo) newNode.parent).color = BLACK;
 		    y.color = BLACK;
-		    ((Node) newNode.parent.parent).color = RED;
-		    newNode = (Node) newNode.parent.parent;
+		    ((Nodo) newNode.parent.parent).color = RED;
+		    newNode = (Nodo) newNode.parent.parent;
 		}
 		else {
 		    if (newNode ==  newNode.parent.left) {
-			newNode = (Node) newNode.parent;
+			newNode = (Nodo) newNode.parent;
 			rightRotate(newNode);
 		    }
 		    
-		    ((Node) newNode.parent).color = BLACK;
-		    ((Node) newNode.parent.parent).color = RED;
-		    leftRotate((Node) newNode.parent.parent);
+		    ((Nodo) newNode.parent).color = BLACK;
+		    ((Nodo) newNode.parent.parent).color = RED;
+		    leftRotate((Nodo) newNode.parent.parent);
 		}
 	    }
 	}
-	((Node) root).color = BLACK;
+	((Nodo) root).color = BLACK;
     }
        
     //ROTAZIONE 
        
        //rotazione sx su un nodo (@param node); il figlio dx di node diventa il padre di node
-    protected void leftRotate(Node node)
+    protected void leftRotate(Nodo node)
     {
-	Node y = (Node) node.right;
+	Nodo y = (Nodo) node.right;
 
 	// Swap the in-between subtree from y to x.
 	node.right = y.left;
@@ -129,9 +133,9 @@ public class RedBlackTree extends BinarySearchTree{
     }
      
     //rotazione dx su un nodo (@param node); il figlio sx di node diventa il padre di node
-     protected void rightRotate(Node node)
+     protected void rightRotate(Nodo node)
     {
-	Node y = (Node) node.left;
+	Nodo y = (Nodo) node.left;
 
 	node.left = y.right;
 	if (node.left != null)
@@ -198,72 +202,72 @@ public class RedBlackTree extends BinarySearchTree{
     }*/
      
      public void treeDelete(int key){
-         Node delNode = (Node) super.delete(key);
+         Nodo delNode = (Nodo) super.delete(key);
          if (delNode.color == BLACK)
                 deleteFixup(delNode);
      }
       
-       protected void deleteFixup(Node delNode)
+       protected void deleteFixup(Nodo delNode)
     {
 	while (delNode != root && delNode.color == BLACK) {
 	    if (delNode.parent.left == delNode) {
-		Node w = (Node) delNode.parent.right;
+		Nodo w = (Nodo) delNode.parent.right;
 
 		if (w.color == RED) {
 		    w.color = BLACK;
-		    ((Node) delNode.parent).color = RED;
-		    leftRotate((Node) delNode.parent);
-		    w = (Node) delNode.parent.right;
+		    ((Nodo) delNode.parent).color = RED;
+		    leftRotate((Nodo) delNode.parent);
+		    w = (Nodo) delNode.parent.right;
 		}
 
-		if (((Node) w.left).color == BLACK 
-		    && ((Node) w.right).color == BLACK) {
+		if (((Nodo) w.left).color == BLACK 
+		    && ((Nodo) w.right).color == BLACK) {
 		    w.color = RED;
-		    delNode = (Node) delNode.parent;
+		    delNode = (Nodo) delNode.parent;
 		}
 		else {
-		    if (((Node) w.right).color == BLACK) {
-			((Node) w.left).color = BLACK;
+		    if (((Nodo) w.right).color == BLACK) {
+			((Nodo) w.left).color = BLACK;
 			w.color = RED;
 			rightRotate(w);
-			w = (Node) delNode.parent.right;
+			w = (Nodo) delNode.parent.right;
 		    }
 
-		    w.color = ((Node) delNode.parent).color;
-		    ((Node) delNode.parent).color = BLACK;
-		    ((Node) w.right).color = BLACK;
-		    leftRotate((Node) delNode.parent);
-		    delNode = (Node) root;
+		    w.color = ((Nodo) delNode.parent).color;
+		    ((Nodo) delNode.parent).color = BLACK;
+		    ((Nodo) w.right).color = BLACK;
+		    leftRotate((Nodo) delNode.parent);
+		    delNode = (Nodo) root;
 		}
 	    }
 	    else {
-		Node w = (Node) delNode.parent.left;
+		Nodo w = (Nodo) delNode.parent.left;
 
 		if (w.color == RED) {
 		    w.color = BLACK;
-		    ((Node) delNode.parent).color = RED;
-		    rightRotate((Node) delNode.parent);
-		    w = (Node) delNode.parent.left;
+		    ((Nodo) delNode.parent).color = RED;
+		    rightRotate((Nodo) delNode.parent);
+		    w = (Nodo) delNode.parent.left;
 		}
 
-		if (((Node) w.right).color == BLACK 
-		    && ((Node) w.left).color == BLACK) {
+		if (((Nodo) w.right).color == BLACK 
+		    && ((Nodo) w.left).color == BLACK) {
 		    w.color = RED;
-		    delNode = (Node) delNode.parent;
+		    delNode = (Nodo) delNode.parent;
 		}
 		else {
-		    if (((Node) w.left).color == BLACK) {
-			((Node) w.right).color = BLACK;
+		    if (((Nodo) w.left).color == BLACK) {
+			((Nodo) w.right).color = BLACK;
 			w.color = RED;
 			leftRotate(w);
-			w = (Node) delNode.parent.left;
+			w = (Nodo) delNode.parent.left;
 		    }
 
-		    w.color = ((Node) delNode.parent).color;
-		    ((Node) delNode.parent).color = BLACK;
-		    ((Node) w.left).color = BLACK;
-		    rightRotate((Node) delNode.parent);
-		    delNode = (Node) root;
+		    w.color = ((Nodo) delNode.parent).color;
+		    ((Nodo) delNode.parent).color = BLACK;
+		    ((Nodo) w.left).color = BLACK;
+		    rightRotate((Nodo) delNode.parent);
+		    delNode = (Nodo) root;
 		}		
 	    }
 	}
@@ -271,7 +275,7 @@ public class RedBlackTree extends BinarySearchTree{
     }
 //RICERCA
      public boolean treeFind(int key){
-         Node find = (Node) super.find(key);
+         Nodo find = (Nodo) super.find(key);
         if(find != null)
             return true;
         return false;
@@ -281,13 +285,13 @@ public class RedBlackTree extends BinarySearchTree{
     //ritorna il numero di nodi black nel percorso dal nodo dato a qualsiasi foglia
     //BlackHeightException: se il numero di nodi black sul percorso lungo il figlio sx ad arivare a qualsiasi foglia è diverso da 
        //quello sul percorso lungo il figlio dx
-     public int blackHeight(Node z)
+     public int blackHeight(Nodo z)
     {
 	if (z == null)
 	    return 0;
 
-	int left = blackHeight((Node) z.left);
-	int right = blackHeight((Node) z.right);
+	int left = blackHeight((Nodo) z.left);
+	int right = blackHeight((Nodo) z.right);
 	if (left == right)
 	    if (z.color == BLACK)
 		return left + 1;
@@ -301,6 +305,6 @@ public class RedBlackTree extends BinarySearchTree{
      //Il valore dovrebbe essere lo stesso per tutti i percorsi.
     public int blackHeight()
     {
-	return blackHeight((Node) root);
+	return blackHeight((Nodo) root);
     }
 }
