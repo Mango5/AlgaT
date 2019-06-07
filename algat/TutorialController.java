@@ -52,12 +52,13 @@ public class TutorialController implements Initializable {
         this.location=url;
         this.resources = rb;
         
+        RedBlackTree rbt = new RedBlackTree();
+        rbt.treeInsert(1);
+        rbt.treeInsert(3);
+        rbt.treeInsert(0);
         GraficaAlbero tree= new GraficaAlbero();
        Group group= new Group();
-       tree.DisegnaRadice(10, group);
-       tree.DisegnaFiglioSx(4, Color.RED, (double)200, (double)50, group);
-        tree.DisegnaFiglioDx(12, Color.RED, (double)200, (double)50, group);
-       
+       group = tree.DisegnaAlbero(rbt, group);       
        
          pnTree.getChildren().add(group);
          

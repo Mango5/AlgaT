@@ -1,15 +1,15 @@
 package algat;
 
-import java.awt.Color;
+import javafx.scene.paint.Color;
 
 public class RedBlackTree {
 	
 	public Nodo root;
 	//Colore per un nodo rosso
-    protected static final Color RED = Color.red;
+    protected static final Color RED = Color.RED;
 
     //Colore per un nodo nero
-    protected static final Color BLACK = Color.black;
+    protected static final Color BLACK = Color.BLACK;
     
 	public RedBlackTree(){
 		root = null;
@@ -377,4 +377,38 @@ public class RedBlackTree {
     public static class BlackHeightException extends RuntimeException
     {
     }
+    
+    public void display(Nodo root){
+		if(root!=null){
+			display(root.left);
+			System.out.print(" " + root.key);
+			display(root.right);
+		}
+	}
+    
+    public static void main(String arg[]){
+		RedBlackTree b = new RedBlackTree();
+		b.treeInsert(3);
+		b.treeInsert(8);
+		b.treeInsert(1);
+		b.treeInsert(4);
+		b.treeInsert(6);
+		b.treeInsert(2);
+		b.treeInsert(10);
+		b.treeInsert(9);
+		b.treeInsert(20);
+		b.treeInsert(25);
+		b.treeInsert(15);
+		b.treeInsert(16);
+		System.out.println("Original Tree : ");
+		b.display(b.root);		
+		System.out.println("");
+		System.out.println("Check whether Node with value 4 exists : " + b.find(4));
+		System.out.println("Delete Node with no children (2) : " + b.delete(2));		
+		b.display(b.root);
+		System.out.println("\n Delete Node with one child (4) : " + b.delete(4));		
+		b.display(b.root);
+		System.out.println("\n Delete Node with Two children (10) : " + b.delete(10));		
+		b.display(b.root);
+	}
 }

@@ -1,5 +1,5 @@
 package algat;
-import algat.tree.RedBlackTree;
+
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
@@ -12,12 +12,12 @@ public class GraficaAlbero {
     double radius; //raggio per tutti i cerchi
     
    public GraficaAlbero(){
-        this.rootX=200;
-        this.rootY=50;
-        this.radius=20;
+        rootX=400;
+        rootY=50;
+        radius=20;
     }
             
-    public void  DisegnaRadice(int key, Group group){
+    public Group  DisegnaRadice(int key, Group group){
         Circle root = new Circle();
         root.setCenterX(rootX);
         root.setCenterY(rootY);
@@ -29,9 +29,10 @@ public class GraficaAlbero {
         label.setLayoutY(rootY - 9);
         label.setTextFill(Color.WHITE);
          group.getChildren().addAll(root,label);
+         return group;
     }
     
-    public void DisegnaFiglioSx(int key,Color color, double parentX, double parentY, Group group){
+    public Group DisegnaFiglioSx(Nodo node, double parentX, double parentY, Group group){
         //disegna il ramo
         Line line=new Line();
         line.setStartX(parentX);
@@ -43,19 +44,28 @@ public class GraficaAlbero {
         childsx.setCenterX(line.getEndX());
         childsx.setCenterY(line.getEndY()+radius);
         childsx.setRadius(radius);
-        childsx.setFill(color);
+        childsx.setFill(node.color);
         //inserisce una label contenente la chiave del nodo
-       String chiave = Integer.toString(key);
-        Label label = new Label("4");
-        label.setLayoutX(line.getEndX() - 9);
-        label.setLayoutY(line.getEndY()+radius - 9);
-        label.setTextFill(Color.WHITE);
-        group.getChildren().addAll(line, childsx,label);
-        
+        if (node != null) {
+        	String chiave = Integer.toString(node.key);
+        	Label label = new Label(chiave);
+        	label.setLayoutX(line.getEndX() - 9);
+        	label.setLayoutY(line.getEndY()+radius - 9);
+        	label.setTextFill(Color.WHITE);
+        	group.getChildren().addAll(line, childsx,label);
+        }
+        else {
+        	Label label = new Label("NIL");
+        	label.setLayoutX(line.getEndX() - 9);
+        	label.setLayoutY(line.getEndY()+radius - 9);
+        	label.setTextFill(Color.WHITE);
+        	group.getChildren().addAll(line, childsx,label);
+        }
+        return group;
     }
     
     
-    public void DisegnaFiglioDx(int key, Color color, double parentX, double parentY,Group group){
+    public Group DisegnaFiglioDx(Nodo node, double parentX, double parentY,Group group){
         Line line=new Line();
         line.setStartX(parentX);
         line.setStartY(parentY + radius);
@@ -66,26 +76,46 @@ public class GraficaAlbero {
         childdx.setCenterX(line.getEndX());
         childdx.setCenterY(line.getEndY()+radius);
         childdx.setRadius(radius);
-        childdx.setFill(color);
+        childdx.setFill(node.color);
         
        //inserisce una label contenente la chiave del nodo
-       String chiave = Integer.toString(key);
-        Label label = new Label(chiave);
-         label.setLayoutX(line.getEndX() - 9);
-        label.setLayoutY(line.getEndY()+radius - 9);
-        label.setTextFill(Color.WHITE);
-       group.getChildren().addAll(line, childdx,label);
-                   
-    }
-    
-    public void DisegnaAlbero(RedBlackTree redblack){
-        Group group = new Group();
-        if(redblack.root != null){
-            this.DisegnaRadice(redblack.root.key ,  group);
-            if(redblack.root.left != null)
-                    this.DisegnaFiglioSx(redblack.root.left.key, redblack.root.left.color , rootX, rootY, group);
+        if (node != null) {
+        	String chiave = Integer.toString(node.key);
+        	Label label = new Label(chiave);
+        	label.setLayoutX(line.getEndX() - 9);
+        	label.setLayoutY(line.getEndY()+radius - 9);
+        	label.setTextFill(Color.WHITE);
+        	group.getChildren().addAll(line, childdx,label);
         }
+        else {
+        	Label label = new Label("NIL");
+        	label.setLayoutX(line.getEndX() - 9);
+        	label.setLayoutY(line.getEndY()+radius - 9);
+        	label.setTextFill(Color.WHITE);
+        	group.getChildren().addAll(line, childdx,label);
+        }
+        return group;
     }
     
+    public Group DisegnaFigli(Nodo node, double parentX, double parentY, Group group) {
+    	if (node.left != null) {
+    		group = this.DisegnaFiglioSx(node.left, parentX, parentY, group);
+    		group = this.DisegnaFigli(node.left, parentX, parentY, group);
+    	}
+    	else
+    		group = this.DisegnaFiglioSx(node.left, parentX, parentY, group);
+    	if (node.right != null) {
+    		group = this.DisegnaFiglioDx(node.right, parentX, parentY, group);
+    		group = this.DisegnaFigli(node.right, parentX, parentY, group);
+    	}
+    	else
+    		group = this.DisegnaFiglioDx(node.right, parentX, parentY, group);
+    	return group;
+    }
     
+    public Group DisegnaAlbero(RedBlackTree tree, Group group){
+        group = this.DisegnaRadice(tree.root.key, group);
+        group = this.DisegnaFigli(tree.root, rootX, rootY, group);
+        return group;
+    }
 }
