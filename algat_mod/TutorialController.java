@@ -57,6 +57,7 @@ public class TutorialController implements Initializable {
         RedBlackTree rbt = new RedBlackTree();
         rbt.setRoot(12);
         rbt.treeInsert(6);
+        rbt.treeInsert(10);
    
         GraficaAlbero tree= new GraficaAlbero();
        Group group= new Group();
