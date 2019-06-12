@@ -21,7 +21,7 @@
                   <Button fx:id="btnFind" layoutX="174.0" layoutY="7.0" mnemonicParsing="false" onMouseClicked="#btnFind_Clicked" prefHeight="27.0" prefWidth="54.0" style="-fx-background-color: white;" text="Find" />
                   <Button fx:id="btnBack" layoutX="376.0" layoutY="7.0" mnemonicParsing="false" style="-fx-background-color: black;" text="&lt;&lt; Step back" textFill="WHITE" />
                   <Button fx:id="btnForward" layoutX="481.0" layoutY="7.0" mnemonicParsing="false" style="-fx-background-color: black;" text="Step forward &gt;&gt;" textFill="WHITE" />
-                  <Button fx:id="bntInsert" layoutX="234.0" layoutY="7.0" mnemonicParsing="false" onMouseClicked="#btnInsert_Clicked" style="-fx-background-color: white;" text="Insert" />
+                  <Button fx:id="btnInsert" layoutX="234.0" layoutY="7.0" mnemonicParsing="false" onMouseClicked="#btnInsert_Clicked" style="-fx-background-color: white;" text="Insert" />
                   <Button fx:id="btnDelete" layoutX="293.0" layoutY="7.0" mnemonicParsing="false" onMouseClicked="#btnDelete_Clicked" style="-fx-background-color: white;" text="Delete" />
                   <TextField fx:id="txtValore" layoutY="7.0" promptText="inserire valore" />
                </children>
@@ -55,7 +55,14 @@
       </AnchorPane>
    </bottom>
    <left>
-      <Pane fx:id="pnComments" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" BorderPane.alignment="CENTER" />
+      <Pane fx:id="pnComments" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane prefHeight="275.0" prefWidth="200.0">
+               <children>
+                  <Text fx:id="txtComments" strokeType="OUTSIDE" strokeWidth="0.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0" />
+               </children>
+            </AnchorPane>
+         </children></Pane>
    </left>
    <center>
       <Pane fx:id="pnTree" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" BorderPane.alignment="CENTER" />

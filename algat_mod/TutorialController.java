@@ -32,7 +32,7 @@ public class TutorialController implements Initializable {
     private int sceneHeight = 0;
     
     private  int step = 0;
-    
+    public  RedBlackTree rbt;
     @FXML Button btnFind;
     @FXML Button btnInsert;
     @FXML Button btnDelete;
@@ -42,7 +42,9 @@ public class TutorialController implements Initializable {
     @FXML Hyperlink hlPaginaIniziale;
     @FXML private URL location;
     @FXML Text txtTitle;
+    @FXML TextField txtValore;
     @FXML Pane pnTree;
+     @FXML Text txtComments;
     @FXML  private ResourceBundle resources;
       
     
@@ -53,29 +55,6 @@ public class TutorialController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         this.location=url;
         this.resources = rb;
-        
-        RedBlackTree rbt = new RedBlackTree();
-        rbt.setRoot(12);
-        rbt.treeInsert(6);
-        rbt.treeInsert(10);
-   
-        GraficaAlbero tree= new GraficaAlbero();
-       Group group= new Group();
-       group = tree.DisegnaAlbero(rbt, group);       
-       
-         pnTree.getChildren().add(group);
-         
-        // settare il titolo e la visibilità dei pulsanti in base al tutorial selezionato
-      /*  if(true){
-            txtTitle.setText("Tutorial - Lezione 1");
-            btnInsert.setDisable(true);
-            btnDelete.setDisable(true);
-        }else{
-            txtTitle.setText("Tutorial - Lezione 2");
-            btnFind.setDisable(true);           
-        }*/
-        
-        //bisogna istanziare l'albero di partenza
         
         
         //gestione dimensione schermo responsive
@@ -118,7 +97,28 @@ public class TutorialController implements Initializable {
         
     }  
     
+    //imposta il titolo in base al tutorial 1 o 2
+    public void setData(String data) {
+        if(data == "1"){
+            txtTitle.setText("Tutorial 1 - Ricerca");
+            btnFind.setDisable(false);
+            btnInsert.setDisable(true);
+            btnDelete.setDisable(true);
+            this.generaAlbero();
+        }else{
+            txtTitle.setText("Tutorial 2 - Inserimento e Cancellazione");
+            btnFind.setDisable(true);
+            btnInsert.setDisable(false);
+            btnDelete.setDisable(false);
+        }
+    }
+    
     public void btnFind_Clicked(){
+        
+        String valore= txtValore.getText();
+        //converto una stringa in intero
+       String messaggio = rbt.treeFind(Integer.parseInt(valore));
+       txtComments.setText(messaggio);
         //chiama la funzione di ricerca
     }
     
@@ -134,10 +134,32 @@ public class TutorialController implements Initializable {
     
     public void btnInsert_Clicked(){
         //chiama la funzione di inserimento
+        String valore= txtValore.getText();
+        String messaggio = rbt.treeInsert(Integer.parseInt(valore));
+        txtComments.setText(messaggio);
     }
     
     public void btnDelete_Clicked(){
         //chiama la funzione di cancellazione
+    }
+    
+    public void generaAlbero(){
+        rbt = new RedBlackTree();
+        rbt.setRoot(12);
+        rbt.treeInsert(6);
+        rbt.treeInsert(15);
+        rbt.treeInsert(4);
+        rbt.treeInsert(8);
+        rbt.treeInsert(22);
+        rbt.treeInsert(1);
+        rbt.treeInsert(13);
+ 
+   
+       GraficaAlbero tree= new GraficaAlbero();
+       Group group= new Group();
+       group = tree.DisegnaAlbero(rbt, group);       
+       
+        pnTree.getChildren().add(group);
     }
        
 }

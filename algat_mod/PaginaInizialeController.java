@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -54,9 +55,16 @@ public class PaginaInizialeController implements Initializable {
         
         btnUno.setOnAction(new EventHandler<ActionEvent>() {
 	@Override public void handle(ActionEvent e){
+            String data = "1";
             try {
+                
                 Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)e.getSource()).getScene().getWindow();
-                BorderPane root = FXMLLoader.load(getClass().getResource("fxml/Tutorial.fxml")); 
+                //BorderPane root = FXMLLoader.load(getClass().getResource("fxml/Tutorial.fxml")); 
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Tutorial.fxml"));
+                BorderPane root = loader.load();
+                //istanzio un controller e richiamo la funzione che mi setta il titolo del tutorial
+                TutorialController controller = loader.<TutorialController>getController();
+                controller.setData(data);
                   Scene scene = new Scene(root,sceneWidth,sceneHeight);
                 stageTheEventSourceNodeBelongs.setScene(scene);
             } catch (IOException ex) {
@@ -67,9 +75,15 @@ public class PaginaInizialeController implements Initializable {
         
         btnDue.setOnAction(new EventHandler<ActionEvent>() {
 	@Override public void handle(ActionEvent e){
+                String data = "2";
             try {
+                
                 Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)e.getSource()).getScene().getWindow();
-                BorderPane root = FXMLLoader.load(getClass().getResource("fxml/Tutorial.fxml")); 
+                 FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Tutorial.fxml"));
+                BorderPane root = loader.load();
+                  //istanzio un controller e richiamo la funzione che mi setta il titolo del tutorial
+                TutorialController controller = loader.<TutorialController>getController();
+                controller.setData(data);
                   Scene scene = new Scene(root,sceneWidth,sceneHeight);
                 stageTheEventSourceNodeBelongs.setScene(scene);
             } catch (IOException ex) {

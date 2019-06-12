@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package algat_mod;
 
 import javafx.application.Application;
@@ -7,6 +12,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+/**
+ *
+ * @author chiaramengoli
+ */
 public class AlgaT_mod extends Application {
     
     int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
