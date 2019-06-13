@@ -282,8 +282,7 @@ public class RedBlackTree {
                         output += "nodo parent : " + current.key;
 			if(id < current.key){	
                             output += " il nodo inserito: " + id + " è minore di nodo corrente: " + current.key;
-				current = current.left;
-                                output += "nodo corrente: " + current.key;
+				current = current.left;                            
 				if(current==null){                            
 					parent.left = newNode;
                                          output += "figlio sinistro del nodo " + parent.key + " : " + newNode.key;
@@ -302,6 +301,7 @@ public class RedBlackTree {
 					return parent.right;
 				}
 			}
+                         output += "nodo corrente: " + current.key;
 		}
 	}
 	//Ripristiniamo le condizioni di colore (rosso-nero) dell'albero dopo l'inserimento di un nodo.
