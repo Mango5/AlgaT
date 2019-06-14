@@ -56,7 +56,7 @@ public class TutorialController implements Initializable {
         this.location=url;
         this.resources = rb;
         
-        
+        rbt = new RedBlackTree();
         //gestione dimensione schermo responsive
          if (screenWidth <= 800 && screenHeight <= 600) {
             sceneWidth = 600;
@@ -104,6 +104,7 @@ public class TutorialController implements Initializable {
             btnFind.setDisable(false);
             btnInsert.setDisable(true);
             btnDelete.setDisable(true);
+            rbt = new RedBlackTree();
             this.generaAlbero();
         }else{
             txtTitle.setText("Tutorial 2 - Inserimento e Cancellazione");
@@ -119,16 +120,19 @@ public class TutorialController implements Initializable {
         //converto una stringa in intero
        String messaggio = rbt.treeFind(Integer.parseInt(valore));
        txtComments.setText(messaggio);
+       txtValore.setText("");
         //chiama la funzione di ricerca
     }
     
     //i pulsanti back e forward mandano avanti step by step la funzione corrente 
     public void btnBack_Clicked(){
         step -=1;
+        //riattivo il thread
     }
     
     public void btnForward_Clicked(){
         step +=1;
+        //riattivo il thread
     }
     
     
@@ -137,29 +141,52 @@ public class TutorialController implements Initializable {
         String valore= txtValore.getText();
         String messaggio = rbt.treeInsert(Integer.parseInt(valore));
         txtComments.setText(messaggio);
+        txtValore.setText("");
+        //ridisegno l'albero
+        GraficaAlbero tree= new GraficaAlbero();
+        Group group= new Group();
+        group = tree.DisegnaAlbero(rbt, group);       
+        pnTree.getChildren().add(group);
+        //verifico l'altezza dell'albero RedBlackTree per verificare se è bilanciato rispetto ai colori
+       rbt.blackHeight();
     }
     
     public void btnDelete_Clicked(){
         //chiama la funzione di cancellazione
+         String valore= txtValore.getText();
+        String messaggio = rbt.treeDelete(Integer.parseInt(valore));
+        txtComments.setText(messaggio);
+        txtValore.setText("");
+        //ridisegno l'albero
+        GraficaAlbero tree= new GraficaAlbero();
+        Group group= new Group();
+        group = tree.DisegnaAlbero(rbt, group);       
+        pnTree.getChildren().add(group);
+       //verifico l'altezza dell'albero RedBlackTree per verificare se è bilanciato rispetto ai colori
+       rbt.blackHeight();
+        
     }
     
     public void generaAlbero(){
         rbt = new RedBlackTree();
-        rbt.setRoot(12);
+        rbt.treeInsert(12);
         rbt.treeInsert(6);
         rbt.treeInsert(15);
         rbt.treeInsert(4);
         rbt.treeInsert(8);
-        rbt.treeInsert(22);
-        rbt.treeInsert(1);
-        rbt.treeInsert(13);
+         rbt.treeInsert(7);
+        rbt.treeInsert(10);
+       rbt.treeInsert(9);
+        rbt.treeInsert(11);
  
    
        GraficaAlbero tree= new GraficaAlbero();
        Group group= new Group();
-       group = tree.DisegnaAlbero(rbt, group);       
-       
+       group = tree.DisegnaAlbero(rbt, group);  
+
         pnTree.getChildren().add(group);
+       //verifico l'altezza dell'albero RedBlackTree per verificare se è bilanciato rispetto ai colori
+      // rbt.blackHeight();
     }
        
 }

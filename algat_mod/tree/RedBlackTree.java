@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 public class RedBlackTree {
 	
     public Nodo root;
+    public String messaggio;
 	//Colore per un nodo rosso
     protected static final Color RED = Color.RED;
 
@@ -16,16 +17,18 @@ public class RedBlackTree {
 		this.root = null;
 	}
 	
-	 public void setRoot(int chiave){
-             this.root = new Nodo(chiave);   
+	 public void setRoot(Nodo root){
+             this.root = root;   
 	    }
 	
 	 
     //ritorna il nodo se nell'albero con radice root e' presente un nodo con chiave id
     public Nodo find(int id){
             Nodo current = root; //la ricerca parte dalla radice
+            //messaggio = "visito il nodo: " + current.key;
             while(current!=null){
                     if(current.key==id){
+                          //  messaggio = "il nodo che sto visitando è il nodo che cerco";
                             return current;
                     }else if(id < current.key){
                             current = current.left;//scendo nel ramo sx se la chiave che stiamo cercando e' minore della chiave del nodo corrente
@@ -47,25 +50,28 @@ public class RedBlackTree {
     }  
         
 	
+        public String treeDelete(int key){
+        //prima di chiamare la delete verificare che  sia  presente un nodo con medesima chiave
+        Nodo delNode =  find(key);
+       if(delNode != null){
+            delNode = delete(delNode);        
+            if (delNode != null ){
+                if(delNode.color == BLACK){
+                    deleteFixup(delNode);
+                }
+                 return "il nodo con chiave" + delNode.key + " è stato cancellato con successo";
+            }else return "Impossibile cancellare la radice dell'albero";
+       }
+       else return "impossibile eliminare il nodo con chiave" + delNode.key + "perchè non è presente nell'albero";
+    }
+        
     //cancello il nodo che ha chiave uguale al valore del parametro id
-	public Nodo delete(int id){
+	public Nodo delete(Nodo delNode){
 		Nodo parent = root;
 		Nodo current = root;
 		boolean isLeftChild = false;
-		while(current.key!=id){
-			parent = current;
-			if(current.key>id){
-				isLeftChild = true;
-				current = current.left;
-			}else{
-				isLeftChild = false;
-				current = current.right;
-			}
-			if(current == null){
-				return null; //ritorno null: il nodo non esiste
-			}
-		}
-        //il ciclo while termina quando ho trovato il nodo
+                //Caso 0: se il nodo da cancellare è la radice dell'albero
+                if(delNode != root){
 		//Caso 1: se il nodo da cancellare non ha nodi figli
 		if(current.left==null && current.right==null){
 			if(current==root){ //se il nodo da cancellare e' la radice, viene posta a null --> viene cancellato tutto l'albero
@@ -78,7 +84,7 @@ public class RedBlackTree {
 			}
 		}
 		//Caso 2 : se il nodo da cancellare ha un solo nodo figlio
-        //se l'unico figlio e' il destro
+                //se l'unico figlio e' il destro
 		else if(current.right==null){
 			if(current==root){
 				root = current.left;
@@ -109,78 +115,71 @@ public class RedBlackTree {
 				parent.right = successor;
 			}			
 			successor.left = current.left;
-		}		
-		return current;		
+		}      
+                return current;	
+                }
+                else return null;	
 	}
 	
-	
-    public void treeDelete(int key){
-        Nodo delNode = delete(key);
-        if (delNode.color == BLACK)
-            deleteFixup(delNode);
-    }
-	
-	
+		
     protected void deleteFixup(Nodo delNode)
     {
+        Nodo w = null;
 	while (delNode != root && delNode.color == BLACK) {
-	    if (delNode.parent.left == delNode) {
-		Nodo w = delNode.parent.right;
-
+	    if (delNode.parent.left == delNode && delNode.parent.right != null) {
+		 w = delNode.parent.right;
 		if (w.color == RED) {
 		    w.color = BLACK;
-		    ( delNode.parent).color = RED;
-		    leftRotate( delNode.parent);
+		    delNode.parent.color = RED;
+		    leftRotate(delNode.parent);
 		    w = delNode.parent.right;
 		}
 
-		if (( w.left).color == BLACK 
-		    && ( w.right).color == BLACK) {
+		if (w.left.color == BLACK  && w.right.color == BLACK) {
 		    w.color = RED;
 		    delNode = delNode.parent;
 		}
 		else {
-		    if (( w.right).color == BLACK) {
-			( w.left).color = BLACK;
+		    if (w.right.color == BLACK) {
+			w.left.color = BLACK;
 			w.color = RED;
 			rightRotate(w);
 			w = delNode.parent.right;
 		    }
 
-		    w.color = (delNode.parent).color;
-		    (delNode.parent).color = BLACK;
-		    ( w.right).color = BLACK;
+		    w.color = delNode.parent.color;
+		    delNode.parent.color = BLACK;
+		    w.right.color = BLACK;
 		    leftRotate( delNode.parent);
 		    delNode = root;
 		}
 	    }
-	    else {
-		Nodo w = delNode.parent.left;
+            else if (delNode.parent.right == delNode && delNode.parent.left != null) {
+		 w = delNode.parent.left;
 
 		if (w.color == RED) {
 		    w.color = BLACK;
-		    ( delNode.parent).color = RED;
+		    delNode.parent.color = RED;
 		    rightRotate( delNode.parent);
 		    w = delNode.parent.left;
 		}
 
-		if ((w.right).color == BLACK 
-		    && ( w.left).color == BLACK) {
+		if (w.right.color == BLACK && w.left.color == BLACK) {
 		    w.color = RED;
-		    delNode = (Nodo) delNode.parent;
+		    delNode = delNode.parent;
 		}
 		else {
-		    if ((w.left).color == BLACK) {
-			( w.right).color = BLACK;
+		    if (w.left.color == BLACK) {
+			w.right.color = BLACK;
 			w.color = RED;
 			leftRotate(w);
 			w = delNode.parent.left;
 		    }
 
-		    w.color = (delNode.parent).color;
-		    ( delNode.parent).color = BLACK;
-		    ( w.left).color = BLACK;
-		    rightRotate( delNode.parent);
+		    w.color = delNode.parent.color;
+		    delNode.parent.color = BLACK;
+		    w.left.color = BLACK;
+		    rightRotate(delNode.parent);
 		    delNode = root;
 		}		
 	    }
@@ -261,6 +260,19 @@ public class RedBlackTree {
 	    else
 		y.parent.right = y;
    }
+      
+    	//inseriamo un nuovo nodo con chiave (key) nell'albero
+    public String treeInsert(int key)
+    { 
+        //prima di chiamare la insert verificare che non sia già presente un nodo con medesima chiave
+        Nodo newNode =  find(key);
+       if(newNode == null){
+            newNode = insert(key); 
+            insertFixup(newNode);           
+            return "Il nodo con chiave " + key + " è stato inserito con successo";
+       }
+       else return "Impossibile inserire il nodo con chiave " + key + "perchè nell'albero è già presente un nodo tale chiave";
+    }
 	
     //inserimento nell'albero di un nuovo nodo con chiave id
 	public Nodo insert(int id){
@@ -269,7 +281,7 @@ public class RedBlackTree {
                 output += "nodo inserito " + id ;
 		if(root==null){ //se l'albero e' vuoto, istanzio la radice con il nuovo nodo
                     output += "l'albero è vuoto, setto il nuovo nodo come la radice dell'albero";
-			root = newNode;
+			setRoot(newNode);
 			return newNode;
 		}
                 
@@ -305,19 +317,29 @@ public class RedBlackTree {
 		}
 	}
 	//Ripristiniamo le condizioni di colore (rosso-nero) dell'albero dopo l'inserimento di un nodo.
-    protected void insertFixup(Nodo newNode){
+        
+        protected void insertFixup(Nodo newNode){
 	String output = "";
     	Nodo y = null;
-        if(newNode.parent != root){
-            output = "il nodo padre del nodo inserito non è la radice";
-            while (newNode.parent.color == RED) {
-                if (newNode.parent == newNode.parent.parent.left) {
-                    y = newNode.parent.parent.right;
+      //casi da distinguere: 
+          //il nodo inserito è la radice
+          //il nodo inserito è un figlio della radice
+          //altrimenti
+
+          //se il nodo inserito è la radice --> root.color = BLACK
+          //se il nodo inserito è un figlio della radice --> root.color = BLACK (i nodi sono già settati a rosso quando inseriti)
+          //ciclo finchè dal basso verso l'alto finchè non arrivo alla radice, esco e setto root.color = BLACK
+        if(newNode == root || newNode.parent ==  root){
+              root.color = BLACK;
+          }else {
+            while (newNode.parent != root) {
+                if (newNode.parent == newNode.parent.parent.left && newNode.parent.parent.right != null) {
+                    y = newNode.parent.parent.right; //y va nel ramo destro dell'albero
                     if (y.color == RED) {
                         newNode.parent.color = BLACK;
                         y.color = BLACK;
                         newNode.parent.parent.color = RED;
-                        y = newNode.parent.parent;
+                        newNode = newNode.parent;
                     }
                     else {
                         if (newNode ==  newNode.parent.right) {
@@ -330,43 +352,28 @@ public class RedBlackTree {
                         rightRotate( newNode.parent.parent);
                     }
                 }
-                else {
-                    y =  newNode.parent.parent.left;
-                    if (y.color == RED) {
-                        ( newNode.parent).color = BLACK;
-                        y.color = BLACK;
-                        newNode.parent.parent.color = RED;
-                        newNode =  newNode.parent.parent;
-                    }
+                else if(newNode.parent == newNode.parent.parent.right && newNode.parent.parent.left != null) {
+                        y =  newNode.parent.parent.left;
+                        if (y.color == RED ) {
+                            newNode.parent.color = BLACK;
+                            y.color = BLACK;
+                            newNode.parent.parent.color = RED;
+                            newNode =  newNode.parent;
+                        }                    
                     else {
                         if (newNode ==  newNode.parent.left) {
                             newNode =  newNode.parent;
                             rightRotate(newNode);
                         }
-
                         newNode.parent.color = BLACK;
                         newNode.parent.parent.color = RED;
                         leftRotate( newNode.parent.parent);
                     }
                 }
             }   
-        }
-        root.color = BLACK;        
+            root.color = BLACK;     
+        }              
  }
-	
-	
-	//inseriamo un nuovo nodo con chiave (key) nell'albero
-    public String treeInsert(int key)
-    { 
-        //prima di chiamare la insert verificare che non sia già presente un nodo con medesima chiave
-        Nodo newNode =  find(key);
-       if(newNode == null){
-            newNode = insert(key); 
-            insertFixup(newNode);       
-            return "Il nodo con chiave " + key + " è stato inserito con successo";
-       }
-       else return "Impossibile inserire il nodo con chiave " + key + "perchè nell'albero è già presente un nodo tale chiave";
-    }
 	
 	
   //ALTEZZA NERA DELL'ALBERO
@@ -385,7 +392,7 @@ public class RedBlackTree {
 		return left + 1;
 	    else
 		return left;
-	else
+	else            
 	    throw new BlackHeightException();
     }
        
@@ -410,7 +417,7 @@ public class RedBlackTree {
 		}
 	}
     
-    public static void main(String arg[]){
+    /*public static void main(String arg[]){
 		RedBlackTree b = new RedBlackTree();
 		b.treeInsert(3);
 		b.treeInsert(8);
@@ -434,5 +441,5 @@ public class RedBlackTree {
 		b.display(b.root);
 		System.out.println("\n Delete Node with Two children (10) : " + b.delete(10));		
 		b.display(b.root);
-	}
+	}*/
 }
