@@ -39,8 +39,8 @@ public class GraficaAlbero {
         Line line=new Line();
         line.setStartX(parentX);
         line.setStartY(parentY + radius);
-        line.setEndX(parentX - (double)100);
-        line.setEndY(parentY + radius + (double)100/n);
+        line.setEndX(parentX - (double)100/n);
+        line.setEndY(parentY + radius + (double)50);
         //disegna il cerchio per il figlio sx
         Circle childsx = new Circle();
         childsx.setCenterX(line.getEndX());
@@ -73,8 +73,8 @@ public class GraficaAlbero {
         Line line=new Line();
         line.setStartX(parentX);
         line.setStartY(parentY + radius);
-        line.setEndX(parentX + (double)100);
-        line.setEndY(parentY + radius + (double)100/n);
+        line.setEndX(parentX + (double)100/n);
+        line.setEndY(parentY + radius + (double)50);
         
         Circle childdx = new Circle();
         childdx.setCenterX(line.getEndX());
@@ -112,9 +112,9 @@ public class GraficaAlbero {
             group = this.DisegnaFiglioDx(node.right, parentX, parentY, group, n);          
         }
         if(node.left != null)
-                group = this.DisegnaFigli(node.left, parentX-(double)50, parentY+ radius + (double)50 + radius, group, n+1);
+                group = this.DisegnaFigli(node.left, parentX-(double)100/n, parentY+ radius + (double)50 + radius, group, n+1);
         if(node.right != null)
-                 group = this.DisegnaFigli(node.right, parentX+(double)50, parentY+ radius + (double)50 + radius, group, n+1);
+                 group = this.DisegnaFigli(node.right, parentX+(double)100/n, parentY+ radius + (double)50 + radius, group, n+1);
       
     	return group;
     }

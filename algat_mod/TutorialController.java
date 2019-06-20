@@ -104,7 +104,6 @@ public class TutorialController implements Initializable {
             btnFind.setDisable(false);
             btnInsert.setDisable(true);
             btnDelete.setDisable(true);
-            rbt = new RedBlackTree();
             this.generaAlbero();
         }else{
             txtTitle.setText("Tutorial 2 - Inserimento e Cancellazione");
@@ -169,15 +168,16 @@ public class TutorialController implements Initializable {
     
     public void generaAlbero(){
         rbt = new RedBlackTree();
+        rbt.setRoot(new Nodo(5));
         rbt.treeInsert(12);
-        rbt.treeInsert(6);
-        rbt.treeInsert(15);
-        rbt.treeInsert(4);
-        rbt.treeInsert(8);
-         rbt.treeInsert(7);
-        rbt.treeInsert(10);
-       rbt.treeInsert(9);
-        rbt.treeInsert(11);
+        //rbt.treeInsert(6);
+        //rbt.treeInsert(15);
+        //rbt.treeInsert(4);
+        //rbt.treeInsert(8);
+        //rbt.treeInsert(7);
+        //rbt.treeInsert(10);
+        //rbt.treeInsert(9);
+        //rbt.treeInsert(11);
  
    
        GraficaAlbero tree= new GraficaAlbero();
