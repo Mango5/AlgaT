@@ -34,13 +34,13 @@ public class GraficaAlbero {
          return group;
     }
     
-    public Group DisegnaFiglioSx(Nodo node, double parentX, double parentY, Group group){
+    public Group DisegnaFiglioSx(Nodo node, double parentX, double parentY, Group group, int n){
         //disegna il ramo
         Line line=new Line();
         line.setStartX(parentX);
         line.setStartY(parentY + radius);
-        line.setEndX(parentX - (double)50);
-        line.setEndY(parentY + radius + (double)50);
+        line.setEndX(parentX - (double)100);
+        line.setEndY(parentY + radius + (double)100/n);
         //disegna il cerchio per il figlio sx
         Circle childsx = new Circle();
         childsx.setCenterX(line.getEndX());
@@ -69,12 +69,12 @@ public class GraficaAlbero {
     }
     
     
-    public Group DisegnaFiglioDx(Nodo node, double parentX, double parentY,Group group){
+    public Group DisegnaFiglioDx(Nodo node, double parentX, double parentY,Group group, int n){
         Line line=new Line();
         line.setStartX(parentX);
         line.setStartY(parentY + radius);
-        line.setEndX(parentX + (double)50);
-        line.setEndY(parentY + radius + (double)50);
+        line.setEndX(parentX + (double)100);
+        line.setEndY(parentY + radius + (double)100/n);
         
         Circle childdx = new Circle();
         childdx.setCenterX(line.getEndX());
@@ -104,24 +104,24 @@ public class GraficaAlbero {
         return group;
     }
     
-    public Group DisegnaFigli(Nodo node, double parentX, double parentY, Group group) {
+    public Group DisegnaFigli(Nodo node, double parentX, double parentY, Group group, int n) {
         if(node == null)
                 return group;
         else{
-            group = this.DisegnaFiglioSx(node.left, parentX, parentY, group);
-            group = this.DisegnaFiglioDx(node.right, parentX, parentY, group);          
+            group = this.DisegnaFiglioSx(node.left, parentX, parentY, group, n);
+            group = this.DisegnaFiglioDx(node.right, parentX, parentY, group, n);          
         }
         if(node.left != null)
-                group = this.DisegnaFigli(node.left, parentX-(double)50, parentY+ radius + (double)50 + radius, group);
+                group = this.DisegnaFigli(node.left, parentX-(double)50, parentY+ radius + (double)50 + radius, group, n+1);
         if(node.right != null)
-                 group = this.DisegnaFigli(node.right, parentX+(double)50, parentY+ radius + (double)50 + radius, group);
+                 group = this.DisegnaFigli(node.right, parentX+(double)50, parentY+ radius + (double)50 + radius, group, n+1);
       
     	return group;
     }
     
     public Group DisegnaAlbero(RedBlackTree tree, Group group){
         group = this.DisegnaRadice(tree.root.key, group);
-        group = this.DisegnaFigli(tree.root, rootX, rootY, group);
+        group = this.DisegnaFigli(tree.root, rootX, rootY, group, 1);
         return group;
     }
 }
