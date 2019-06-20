@@ -112,9 +112,9 @@ public class GraficaAlbero {
             group = this.DisegnaFiglioDx(node.right, parentX, parentY, group, n);          
         }
         if(node.left != null)
-                group = this.DisegnaFigli(node.left, parentX-(double)100/n, parentY+ radius + (double)50 + radius, group, n+1);
+                group = this.DisegnaFigli(node.left, parentX-(double)100/n, parentY+ radius + (double)50 + radius, group, n*2);
         if(node.right != null)
-                 group = this.DisegnaFigli(node.right, parentX+(double)100/n, parentY+ radius + (double)50 + radius, group, n+1);
+                 group = this.DisegnaFigli(node.right, parentX+(double)100/n, parentY+ radius + (double)50 + radius, group, n*2);
       
     	return group;
     }
