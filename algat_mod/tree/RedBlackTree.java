@@ -417,9 +417,9 @@ public class RedBlackTree {
 		}
 	}
     
-    /*public static void main(String arg[]){
+    public static void main(String arg[]){
 		RedBlackTree b = new RedBlackTree();
-		b.treeInsert(3);
+		b.setRoot(new Nodo(3));
 		b.treeInsert(8);
 		b.treeInsert(1);
 		b.treeInsert(4);
@@ -435,11 +435,11 @@ public class RedBlackTree {
 		b.display(b.root);		
 		System.out.println("");
 		System.out.println("Check whether Node with value 4 exists : " + b.find(4));
-		System.out.println("Delete Node with no children (2) : " + b.delete(2));		
+		System.out.println("Delete Node with no children (2) : " + b.treeDelete(2));		
 		b.display(b.root);
-		System.out.println("\n Delete Node with one child (4) : " + b.delete(4));		
+		System.out.println("\n Delete Node with one child (4) : " + b.treeDelete(4));		
 		b.display(b.root);
-		System.out.println("\n Delete Node with Two children (10) : " + b.delete(10));		
+		System.out.println("\n Delete Node with Two children (10) : " + b.treeDelete(10));		
 		b.display(b.root);
-	}*/
+	}
 }
