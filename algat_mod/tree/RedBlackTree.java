@@ -43,7 +43,6 @@ public class RedBlackTree {
     public String treeFind(int key){
         Nodo find =  find(key);
        if(find != null){
-           find.color=Color.GREEN;
            return "Il nodo con chiave " + key + " è stato trovato";
        }
        return "Nell'albero non esiste un nodo con chiave " + key;
@@ -350,6 +349,7 @@ public class RedBlackTree {
                         newNode.parent.color = BLACK;
                         newNode.parent.parent.color = RED;
                         rightRotate( newNode.parent.parent);
+			newNode = newNode.parent;
                     }
                 }
                 else if(newNode.parent == newNode.parent.parent.right && newNode.parent.parent.left != null) {
@@ -368,6 +368,7 @@ public class RedBlackTree {
                         newNode.parent.color = BLACK;
                         newNode.parent.parent.color = RED;
                         leftRotate( newNode.parent.parent);
+			 newNode = newNode.parent;
                     }
                 }
             }   
@@ -417,29 +418,5 @@ public class RedBlackTree {
 		}
 	}
     
-    public static void main(String arg[]){
-		RedBlackTree b = new RedBlackTree();
-		b.setRoot(new Nodo(3));
-		b.treeInsert(8);
-		//b.treeInsert(1);
-		//b.treeInsert(4);
-		//b.treeInsert(6);
-		//b.treeInsert(2);
-		//b.treeInsert(10);
-		//b.treeInsert(9);
-		//b.treeInsert(20);
-		//b.treeInsert(25);
-		//b.treeInsert(15);
-		//b.treeInsert(16);
-		System.out.println("Original Tree : ");
-		b.display(b.root);		
-		System.out.println("");
-		System.out.println("Check whether Node with value 4 exists : " + b.treeFind(4));
-		System.out.println("Delete Node with no children (2) : " + b.treeDelete(2));		
-		b.display(b.root);
-		System.out.println("\n Delete Node with one child (4) : " + b.treeDelete(4));		
-		b.display(b.root);
-		System.out.println("\n Delete Node with Two children (10) : " + b.treeDelete(10));		
-		b.display(b.root);
-	}
+   
 }
