@@ -331,7 +331,10 @@ public class RedBlackTree {
         if(newNode == root || newNode.parent ==  root){
               root.color = BLACK;
           }else {
-            while (newNode.parent != root) {
+		//la condizione nel while 'newNode.parent != null' in realtà non serve se si ha un albero redblack bilanciato
+		//correttamente, capita se inserendo un nodo viene applicata la rotazione e un nodo finisce figlio di un nodo
+		//nil 
+            while (newNode.parent != root && newNode.parent != null) {
                 if (newNode.parent == newNode.parent.parent.left && newNode.parent.parent.right != null) {
                     y = newNode.parent.parent.right; //y va nel ramo destro dell'albero
                     if (y.color == RED) {
