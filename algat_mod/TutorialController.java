@@ -146,7 +146,7 @@ public class TutorialController implements Initializable {
         Group group= new Group();
         group = tree.DisegnaAlbero(rbt, group);       
         pnTree.getChildren().add(group);
-        //verifico l'altezza dell'albero RedBlackTree per verificare se è bilanciato rispetto ai colori
+        //verifico l'altezza dell'albero RedBlackTree per verificare se e' bilanciato rispetto ai colori
        rbt.blackHeight();
     }
     
