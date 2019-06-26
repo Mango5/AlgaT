@@ -68,7 +68,7 @@ public class TutorialController implements Initializable {
             sceneWidth = 1000;
             sceneHeight = 650;
         }
-         
+          txtComments.wrappingWidthProperty().set(180); //fissa la larghezza massima del testo e permette di andare automaticamente a capo se necessario
         //gestione azione al click sull'hyperlink relativo alle domande
        hlDomande.setOnAction(new EventHandler<ActionEvent>() {
 	@Override public void handle(ActionEvent e){
