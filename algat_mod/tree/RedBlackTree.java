@@ -76,65 +76,54 @@ public class RedBlackTree {
         if(delNode != root){
         	//Caso 1: se il nodo da cancellare non ha nodi figli
         	if(current.left==null && current.right==null){
-        		if(current==root){ //se il nodo da cancellare e' la radice, viene posta a null --> viene cancellato tutto l'albero
+        		if(current==root) //se il nodo da cancellare e' la radice, viene posta a null --> viene cancellato tutto l'albero
         			root = null;
-        		}
-        		if(isLeftChild == true){
+        		if(isLeftChild == true)
         			parent.left = null;
-        		}
-        		else{
+        		else
         			parent.right = null;
-        		}
         	}
         	//Caso 2 : se il nodo da cancellare ha un solo nodo figlio
             //se l'unico figlio e' il destro
         	else
         		if(current.right==null){
-        			if(current==root){
+        			if(current==root)
         				root = current.left;
-        			}
-        			else
-        				if(isLeftChild){
+        			else {
+        				if(isLeftChild)
         					parent.left = current.left;
-        				}
-        				else{
+        				else
         					parent.right = current.left;
-        				}
+        			}
         		}
         		//se l'unico figlio e' il sinistro
         		else
         			if(current.left==null){
-        				if(current==root){
-        					root = current.right;
-        					root.parent = null;
-        					return root;
+        				if(current==root) {
+        					root.right = null;
+        					return null;
         				}
         				else
-        					if(isLeftChild){
+        					if(isLeftChild)
         						parent.left = current.right;
-        					}
-        					else{
+        					else
         						parent.right = current.right;
-        					}
         			//Caso 3: se il nodo da cancellare ha entrambi i figli
         			}
         			else
         				if(current.left!=null && current.right!=null){			
         					//cerchiamo l'elemento minimo nel sotto-albero sinistro
         					Nodo successor = getSuccessor(current);
-        					if(current==root){
+        					if(current==root)
         						root = successor;
-        					}
         					else
-        						if(isLeftChild){
+        						if(isLeftChild)
         							parent.left = successor;
-        						}
-        						else{
-        							parent.right = successor;
-        						}			
+        						else
+        							parent.right = successor;		
         					successor.left = current.left;
         				}      
-                	return current;	
+        	return current;
         }
         else
         	return null;	
