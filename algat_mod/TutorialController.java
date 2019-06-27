@@ -72,8 +72,14 @@ public class TutorialController implements Initializable {
         //gestione azione al click sull'hyperlink relativo alle domande
        hlDomande.setOnAction(new EventHandler<ActionEvent>() {
 	@Override public void handle(ActionEvent e){
-                Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)e.getSource()).getScene().getWindow();
-                stageTheEventSourceNodeBelongs.setScene(new Scene(new Pane()));
+				try {
+					PescaDomande paginadomande=new PescaDomande("domande");
+					Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)e.getSource()).getScene().getWindow();
+		             		stageTheEventSourceNodeBelongs.setScene(paginadomande.vedi());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
         }
     });
     
