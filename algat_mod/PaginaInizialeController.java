@@ -95,20 +95,34 @@ public class PaginaInizialeController implements Initializable {
     } 
   
     public void loadData(){
-        txtTesto.setText("In informatica, un albero binario di ricerca bilanciato √® un albero"
+        txtTesto.setText("In informatica, un albero binario di ricerca bilanciato e' un albero"
 					+ "binario di ricerca la cui altezza, grazie a particolari condizioni che la sua struttura"
 					+ "deve soddisfare, rimane limitata. Queste condizioni implicano delle operazioni di"
-					+ "inserimento ed eliminazione pi√π complesse rispetto a quelle di semplici alberi binari,"
+					+ "inserimento ed eliminazione piu' complesse rispetto a quelle di semplici alberi binari,"
 					+ "ma garantiscono che esse vengano eseguite in O(log n)."
-                                        + "\n\n"
-                                        + "Che cos'√® un Red-Black Tree?"
-                                        + "....[risposta]....");
+					+ "\nAlcune strutture di dati che implementano questo tipo di alberi sono B-Albero e Alberi Red Black"
+					+ "\nPer semplicit‡ utilizzeremo gli alberi red black per spiegare meglio questo concetto."
+                    + "\n"
+                    + "CHE COS'E' UN RED-BLACK TREE?"
+                    + "\nUn Red Black Tree Ë un albero di ricerca binario autobilanciante utilizzato per"
+                    + "memorizzare coppie di dati chiave-valore, di qualsiasi tipo, in modo ordinato."
+                    + " Un RBT deve soddisfare le seguenti propriet‡:"
+                    + "\n1) Un nodo puÚ essere rosso o nero"
+                    + "\n2) Il nodo radice Ë nero"
+                    + "\n3) Tutti i nodi foglia sono neri e hanno chiave NULL"
+                    + "\n4) Entrambi i figli di ogni nodo rosso sono neri"
+                    + "\n5) Tutti i percorsi diretti dal nodo radice alle foglie contengono lo stesso numero di nodi neri"
+                    + "\nOperazioni di inserimento e rimozione in un RBT apportano modifiche, alla struttura"
+                    + "dell'albero, che possono violare le condizioni di bilanciamento (propriet‡ dei RBT).\n"
+                    + "Se le condizioni di bilanciamento sono violate occorre:\n"
+                    + "- modificare i colori nella zona della violazione\n"
+                    + "- ribilanciare l'albero con opportune rotazioni");
 
-         txtProg.setText("AlgaT √® un progetto universitario per il corso di Algoritmi e strutture dati."
-                 + "Questa applicazione ha lo scopo di mostrare, all'utente che ne far√† uso,"
-                 + " gli alberi bilanciati di ricerca tramite l'algoritmo degli alberi Red-Black."
+         txtProg.setText("AlgaT e' un progetto universitario per il corso di Algoritmi e strutture dati."
+                 + "Questa applicazione ha lo scopo di mostrare, all'utente che ne fara' uso,"
+                 + " gli alberi bilanciati di ricerca tramite la struttura dati degli alberi Red-Black."
                  + "L'applicazione contiene alcuni tutorial che mostreranno aspetti diversi dell'argomento"
-                 + " e alla fine di ognuno di essi √® presente una sezione di domande di autoapprendimento.");      
+                 + " e alla fine di ognuno di essi e' presente una sezione di domande di autoapprendimento.");      
     }
     
 }

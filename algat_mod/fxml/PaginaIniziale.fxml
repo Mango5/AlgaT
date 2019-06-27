@@ -22,7 +22,7 @@
       <AnchorPane prefHeight="173.0" prefWidth="396.0" style="-fx-background-color: white; -fx-border-color: blue;" BorderPane.alignment="CENTER">
          <children>
             <Text fx:id="txtTesto" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0" />
-            <ImageView fitHeight="135.0" fitWidth="216.0" layoutX="269.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="7.0">
+            <ImageView fitHeight="200.0" fitWidth="250.0" layoutX="158.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <image>
                   <Image url="@../img/Screenshot%202019-05-21%20at%2021.21.15.png" />
                </image>
