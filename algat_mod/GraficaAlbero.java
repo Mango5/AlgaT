@@ -112,16 +112,17 @@ public class GraficaAlbero {
             group = this.DisegnaFiglioDx(node.right, parentX, parentY, group, n);          
         }
         if(node.left != null)
-                group = this.DisegnaFigli(node.left, parentX-(double)100/n, parentY+ radius + (double)50 + radius, group, n*2);
+            group = this.DisegnaFigli(node.left, parentX-(double)100/n, parentY+ radius + (double)50 + radius, group, n*2);
         if(node.right != null)
-                 group = this.DisegnaFigli(node.right, parentX+(double)100/n, parentY+ radius + (double)50 + radius, group, n*2);
-      
+            group = this.DisegnaFigli(node.right, parentX+(double)100/n, parentY+ radius + (double)50 + radius, group, n*2);
     	return group;
     }
     
     public Group DisegnaAlbero(RedBlackTree tree, Group group){
-        group = this.DisegnaRadice(tree.root.key, group);
-        group = this.DisegnaFigli(tree.root, rootX, rootY, group, 1);
+    	if (tree.root != null) {
+    		group = this.DisegnaRadice(tree.root.key, group);
+    		group = this.DisegnaFigli(tree.root, rootX, rootY, group, 1);
+    	}
         return group;
     }
 }

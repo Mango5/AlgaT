@@ -9,7 +9,7 @@ public class Nodo {
     public Nodo parent;
     //un nodo puo' avere colore rosso o nero
     public Color color;
-
+    public boolean isDeleted;
     
     public Nodo(int data) {
     	this.key = data;
@@ -17,5 +17,6 @@ public class Nodo {
         this.right = null;
         this.parent = null;
         this.color = Color.RED;
+        this.isDeleted = false;
     }
  }

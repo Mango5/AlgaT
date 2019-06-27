@@ -53,18 +53,14 @@ public class RedBlackTree {
     	//prima di chiamare la delete verificare che  sia  presente un nodo con medesima chiave
         Nodo delNode =  find(key);
         if(delNode != null){
-        	delNode = delete(delNode);        
-            if (delNode != null ){
-            	if(delNode.color == BLACK){
-            		deleteFixup(delNode);
-                }
-                return "il nodo con chiave" + delNode.key + " e' stato cancellato con successo";
+        	delNode = delete(delNode);
+            if(delNode.color == BLACK){
+            	deleteFixup(delNode);
             }
-            else
-            	return "Impossibile cancellare la radice dell'albero";
+            return "il nodo con chiave" + delNode.key + " e' stato cancellato con successo";
         }
         else
-        	return "impossibile eliminare il nodo con chiave" + delNode.key + "perche' non e' presente nell'albero";
+        	return "impossibile eliminare il nodo con chiave" + key + "perche' non e' presente nell'albero";
     }
         
     //cancello il nodo che ha chiave uguale al valore del parametro id
@@ -125,8 +121,10 @@ public class RedBlackTree {
         				}      
         	return current;
         }
-        else
-        	return null;	
+        else {
+        	root = null;
+        	return null;
+        }
 	}
 	
 		
@@ -435,12 +433,12 @@ public class RedBlackTree {
 		}
 	}    
    
-    /*public static void main(String[] args){
+    public static void main(String[] args){
         RedBlackTree a = new RedBlackTree();
         a.treeInsert(4);
         a.treeInsert(5);
         a.treeDelete(5);
         System.out.print(a.root.key);
         System.out.print(a.root.right.key);
-    }*/
+    }
 }
