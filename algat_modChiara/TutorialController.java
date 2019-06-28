@@ -1,6 +1,6 @@
 package algat_modChiara;
 
-import algat_mod.tree.*;
+import algat_modChiara.tree.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -16,8 +16,6 @@ import javafx.scene.control.*;
 import javafx.scene.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;

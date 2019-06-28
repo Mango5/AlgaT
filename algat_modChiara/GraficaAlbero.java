@@ -1,6 +1,6 @@
 package algat_modChiara;
 
-import algat_mod.tree.*;
+import algat_modChiara.tree.*;
 
 import javafx.scene.Group;
 import javafx.scene.control.Label;
