@@ -433,12 +433,12 @@ public class RedBlackTree {
 		}
 	}    
    
-    public static void main(String[] args){
+    /*public static void main(String[] args){
         RedBlackTree a = new RedBlackTree();
         a.treeInsert(4);
         a.treeInsert(5);
         a.treeDelete(5);
         System.out.print(a.root.key);
         System.out.print(a.root.right.key);
-    }
+    }*/
 }
