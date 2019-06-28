@@ -1,4 +1,4 @@
-package algat_mod;
+package algat_modChiara;
 
 import java.io.IOException;
 import java.net.URL;
