@@ -1,0 +1,22 @@
+Esempio 
+treeInsert(1)
+treeInsert(2)
+l'albero sarà:
+		1
+		 \
+		  2
+la matrice conterà:
+0. (1) (inserimento)
+1. (2) (inserimento)<-c-h
+
+premendo back leggo il tipo di azione ed eseguo l'opposto, poi h indicherà l'azione prima a quella cancellata
+
+back= (2) (delete)
+l'albero sarà:
+	        1
+h indica l'azione precedente:
+0. (1) (inserimento)<-h
+1. (2) (inserimento)<-c
+Se premo forward eseguo l'azione successiva(ovvero quella cancellata prima) ad h,controllando prima che h<c
+
+
