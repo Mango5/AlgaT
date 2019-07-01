@@ -1,5 +1,6 @@
 package algat_modChiara;
 
+import algat_modChiara.tree.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

@@ -1,5 +1,6 @@
 package algat_modChiara;
 
+import algat_modChiara.tree.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

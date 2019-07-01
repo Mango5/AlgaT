@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package algat_modChiara;
+import algat_modChiara.tree.*;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
