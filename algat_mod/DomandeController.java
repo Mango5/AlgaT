@@ -1,9 +1,10 @@
+package algat_mod;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package algat_mod;
+
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -57,9 +58,41 @@ public class DomandeController implements Initializable{
             Logger.getLogger(DomandeController.class.getName()).log(Level.SEVERE, null, ex);
         }
      }
-     
+     public void esci() {
+    	 Stage stage=(Stage) btnConferma.getScene().getWindow();
+ 		stage.close();
+ 		BorderPane root;
+ 		try {
+ 			root = FXMLLoader.load(getClass().getResource("PaginaIniziale.fxml"));
+ 			int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
+ 		    int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
+ 			int sceneWidth = 0;
+ 	        int sceneHeight = 0;
+ 	        if (screenWidth <= 800 && screenHeight <= 600) {
+ 	            sceneWidth = 600;
+ 	            sceneHeight = 350;
+ 	        } else if (screenWidth <= 1280 && screenHeight <= 768) {
+ 	            sceneWidth = 800;
+ 	            sceneHeight = 450;
+ 	        } else if (screenWidth <= 1920 && screenHeight <= 1080) {
+ 	            sceneWidth = 1000;
+ 	            sceneHeight = 650;
+ 	        }
+
+ 	        // Scene       
+ 	       Scene scene = new Scene(root,sceneWidth,sceneHeight);
+ 	      // Scene scene  = new  Scene(root);
+ 	        stage.setResizable(true);
+ 	        stage.setScene(scene);
+ 	        stage.show();
+ 		} catch (IOException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
+ 	}
      public void btnConferma_Clicked(){
          try {
+        	 
                     if(this.spiegazione==false) {			   
                             reader.mark(10000);
                             if(this.txtRisposta.getText().equals(reader.readLine())) {
@@ -76,6 +109,12 @@ public class DomandeController implements Initializable{
                             this.txtRisultato.setText("");
                             this.btnConferma.setText("Conferma");
                             this.spiegazione=false;
+                    }
+                    reader.mark(10000);
+                    if(reader.readLine()==null) {
+                    	esci();
+                    }else {
+                    	reader.reset();
                     }
             }catch (IOException e) {
                     // TODO Auto-generated catch block
