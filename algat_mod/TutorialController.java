@@ -169,8 +169,8 @@ public class TutorialController implements Initializable {
     public void btnInsert_Clicked(){
         //chiama la funzione di inserimento
         String valore= txtValore.getText();
-        rbt.treeInsert(Integer.parseInt(valore));
-        //txtComments.setText(messaggio);
+        String messaggio = rbt.treeInsert(Integer.parseInt(valore));
+        txtComments.setText(messaggio);
         txtValore.setText("");
         //ridisegno l'albero
         this.ridisegna();
@@ -184,8 +184,8 @@ public class TutorialController implements Initializable {
     public void btnDelete_Clicked(){
         //chiama la funzione di cancellazione
         String valore= txtValore.getText();
-        rbt.treeDelete(Integer.parseInt(valore));
-       // txtComments.setText(messaggio);
+        String messaggio = rbt.treeDelete(Integer.parseInt(valore));
+        txtComments.setText(messaggio);
         txtValore.setText("");
        
         //ridisegno l'albero
@@ -201,10 +201,11 @@ public class TutorialController implements Initializable {
     public void ridisegna() {
     	 GraficaAlbero tree= new GraficaAlbero();
          Group group= new Group();
-         group = tree.DisegnaAlbero(rbt, group);       
+         group = tree.DisegnaAlbero(rbt, group);
+         pnTree.getChildren().clear();       
          pnTree.getChildren().add(group);
          //verifico l'altezza dell'albero RedBlackTree per verificare se e' bilanciato rispetto ai colori
-        rbt.blackHeight();
+        //rbt.blackHeight();
     }
     
     public void generaAlbero(){

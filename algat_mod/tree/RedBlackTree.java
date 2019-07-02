@@ -1,6 +1,5 @@
 package algat_mod.tree;
 
-
 import javafx.scene.paint.Color;
 
 public class RedBlackTree {
@@ -17,7 +16,8 @@ public class RedBlackTree {
 	}
 	
 	 public void setRoot(Nodo root){
-             this.root = root;   
+             this.root = root;
+             this.root.color = BLACK;
 	    }
 	
 	 
@@ -40,54 +40,75 @@ public class RedBlackTree {
     public String treeFind(int key){
         Nodo find =  find(key);
        if(find != null){
-           return "Il nodo con chiave " + key + " è stato trovato";
+           return "Il nodo con chiave " + key + " e' stato trovato";
        }
        return "Nell'albero non esiste un nodo con chiave " + key;
-    }  
-        
-	
-     
-        
-   
+    }   
     
-    public void link(Nodo p, Nodo u, int x) {
-    	if (u != null)
+    public String link(Nodo p, Nodo u, int x) {
+    	String messaggio = "";
+    	if (u != null) {
     		u.parent = p;
-    	if (p != null)
-    		if (x < p.key)
-    			p.left = u;
+    		if (p != null)
+    			messaggio += "\nil padre di " + u.key + " diventa " + p.key;
     		else
+    			messaggio += "\nil padre di " + u.key + " diventa null";
+    	}
+    	if (p != null)
+    		if (x < p.key) {
+    			p.left = u;
+    			if (u != null)
+    				messaggio += "\nil figlio sinistro di " + p.key + " diventa " + u.key;
+    			else
+    				messaggio += "\nil figlio sinistro di " + p.key + " diventa null";
+    		}
+    		else {
     			p.right = u;
+    			if (u != null)
+    				messaggio += "\nil figlio destro di " + p.key + " diventa " + u.key;
+    			else
+    				messaggio += "\nil figlio destro di " + p.key + " diventa null";
+    		}
+    	return messaggio;
     }
     
-    public void treeDelete(int x) {
+    public String treeDelete(int x) {
+    	String messaggio = "";
     	Nodo u = this.find(x);
     	if (u!= null) {
-    		if (u.left != null && u.right != null) {
-    			Nodo s = u.right;
-    			while (s.left != null)
-    				s = s.left;
-    			u.key = s.key;
-    			x = s.key;
-    			u = s;
+    		if (u == this.root && u.left == null && u.right == null) {
+    			this.root = null;
+    			messaggio += "la radice viene settata a null e l'albero non esiste piu'";
     		}
-    		Nodo t;
-    		if (u.left != null && u.right == null)
-    			t = u.left;
-    		else
-    			t = u.right;
-    		link (u.parent, t, x);
-    		if (u.color == BLACK)
-    			deleteFixup(t);
-    		if (u.parent == null)
-    			this.root = t;
-    		u = null;
+    		else {
+    			if (u.left != null && u.right != null) {
+    				Nodo s = u.right;
+    				while (s.left != null)
+    					s = s.left;
+    				u.key = s.key;
+    				x = s.key;
+    				u = s;
+    			}
+    			Nodo t;
+    			if (u.left != null && u.right == null)
+    				t = u.left;
+    			else
+    				t = u.right;
+    			messaggio += link(u.parent, t, x);
+    			if (u.color == BLACK)
+    				messaggio += deleteFixup(t);
+    			if (u.parent == null)
+    				this.root = t;
+    			u = null;
+    		}
     	}
-    	while (this.root.parent != null)
-    		this.root = this.root.parent;
+    	//while (this.root.parent != null)
+    		//this.root = this.root.parent;
+    	return messaggio;
     }
 	
-    protected void deleteFixup(Nodo t){
+    protected String deleteFixup(Nodo t){
+    	String messaggio = "";
     	while (t != this.root && t.color == BLACK) {
     		Nodo p = t.parent;
     		if (t == p.left) {
@@ -96,25 +117,33 @@ public class RedBlackTree {
     			Nodo nd = f.right;
     			if (f.color == RED) {
     				p.color = RED;
+    				messaggio += "\n" + p.key + " diventa rosso";
     				f.color = BLACK;
+    				messaggio += "\n" + f.key + " diventa nero";
     				leftRotate(p);
     			}
     			else
     				if (ns.color == nd.color && nd.color == BLACK) {
     					f.color = RED;
+    					messaggio += "\n" + f.key + " diventa rosso";
     					t = p;
     				}
     				else
     					if (ns.color == RED && nd.color == BLACK) {
     						ns.color = BLACK;
+    						messaggio += "\n" + ns.key + " diventa nero";
     						f.color = RED;
+    						messaggio += "\n" + f.key + " diventa rosso";
     						rightRotate(f);
     					}
     					else
     						if(nd.color == RED) {
     							f.color = p.color;
+    							messaggio += "\n" + f.key + " diventa dello stesso colore di " + p.key;
     							p.color = BLACK;
+    							messaggio += "\n" + p.key + " diventa nero";
     							nd.color = BLACK;
+    							messaggio += "\n" + nd.key + " diventa nero";
     							leftRotate(p);
     							t = this.root;
     						}
@@ -125,70 +154,77 @@ public class RedBlackTree {
     			Nodo nd = f.left;
     			if (f.color == RED) {
     				p.color = RED;
+    				messaggio += "\n" + p.key + " diventa rosso";
     				f.color = BLACK;
+    				messaggio += "\n" + f.key + " diventa nero";
     				leftRotate(p);
     			}
     			else
     				if (ns.color == nd.color && nd.color == BLACK) {
     					f.color = RED;
+    					messaggio += "\n" + f.key + " diventa rosso";
     					t = p;
     				}
     				else
     					if (ns.color == RED && nd.color == BLACK) {
     						ns.color = BLACK;
+    						messaggio += "\n" + ns.key + " diventa nero";
     						f.color = RED;
+    						messaggio += "\n" + f.key + " diventa rosso";
     						rightRotate(f);
     					}
     					else
     						if(nd.color == RED) {
     							f.color = p.color;
+    							messaggio += "\n" + f.key + " diventa dello stesso colore di " + p.key;
     							p.color = BLACK;
+    							messaggio += "\n" + p.key + " diventa nero";
     							nd.color = BLACK;
+    							messaggio += "\n" + nd.key + " diventa nero";
     							leftRotate(p);
     							t = this.root;
     						}
     		}
     			
     	}
-    	if(t != null)
+    	if(t != null) {
     		t.color = BLACK;
+    		messaggio += "\n" + t.key + " diventa nero";
+    	}
+    	return messaggio;
     }
 		
 	
 	
-	//rotazione sx su un nodo (@param node); il figlio dx di node diventa il padre di node
-    protected void leftRotate(Nodo node)
-    {
-	Nodo y = (Nodo) node.right;
-
+	//rotazione sx su un nodo (node); il figlio dx di node diventa il padre di node
+    protected Nodo leftRotate(Nodo node){
+    	Nodo y = node.right;
 	// Swap the in-between subtree from y to x.
-	node.right = y.left;
-	if (y.left != null)
-	    y.left.parent = node;
-
+    	node.right = y.left;
+    	if (y.left != null)
+    		y.left.parent = node;
 	// Make y the root of the subtree for which x was the root.
-	y.parent = node.parent;
+    	y.parent = node.parent;
 	
 	// If x is the root of the entire tree, make y the root.
 	// Otherwise, make y the correct child of the subtree's
 	// parent.
-	if (node.parent == null)
-	    root = y;
-	else 
-	    if (node == node.parent.left)
-		node.parent.left = y;
-	    else
-		node.parent.right = y;
-
+    	if (node.parent == null)
+    		root = y;
+    	else 
+    		if (node == node.parent.left)
+    			node.parent.left = y;
+    		else
+    			node.parent.right = y;
 	// Relink x and y.
-	y.left = node;
-	node.parent = y;
+    	y.left = node;
+    	node.parent = y;
+    	return y;
     }
     
     
   //rotazione dx su un nodo (@param node); il figlio sx di node diventa il padre di node
-    protected void rightRotate(Nodo node)
-   {
+    protected Nodo rightRotate(Nodo node){
 	Nodo y = (Nodo) node.left;
 
 	node.left = y.right;
@@ -207,89 +243,109 @@ public class RedBlackTree {
 		y.parent.left = y;
 	    else
 		y.parent.right = y;
+	return y;
    }
     
    
-   public void treeInsert(int x) {
-	   Nodo p = null;
-           Nodo n = new Nodo(x);
-           if(this.root == null) this.setRoot(n);
-	   Nodo u = this.root;
-	   
-	   while (u != null && u.key != x) {
-		   p = u;
-		   if (x < u.key)
-			   u = u.left;
-		   else
-			   u = u.right;
-	   }
-	   if (u != null && u.key == x)
-		   u.key = x;
-	   else {
-		   link(p, n, x);
-		   insertFixup(n);
-	   }
-	   while (n.parent != null)
-		   n = n.parent;
-	   
+   public String treeInsert(int x) {
+	   String messaggio = "";
+	   Nodo n = new Nodo(x);
+       if(this.root == null) {
+    	   this.setRoot(n);
+    	   messaggio += "La radice e' stata settata a " + x;
+       }
+       else {
+    	   Nodo p = null;
+    	   Nodo u = this.root;
+    	   while (u != null && u.key != x) {
+    		   p = u;
+    		   if (x < u.key)
+    			   u = u.left;
+    		   else
+    			   u = u.right;
+    	   }
+    	   if (u != null && u.key == x)
+    		   u.key = x;
+    	   else {
+    		   messaggio += link(p, n, x);
+    		   messaggio += insertFixup(n);
+    	   }
+    	   while (n.parent != null)
+    		   n = n.parent;
+       }
+       return messaggio;
    }
    
-   public void insertFixup(Nodo t) {
+   public String insertFixup(Nodo t) {
+	   String messaggio = "";
 	   t.color = RED;
-           if (t == this.root || t.parent == this.root)
-               this.root.color = BLACK;
-           else{
-	   while (t != null) {
-		   Nodo p = t.parent;
-		   Nodo n;
-		   if (p != null)
-			   n = p.parent;
-		   else
-			   n = null;
-		   Nodo z;
-		   if (n == null)
-			   z = null;
-		   else
-			   if (n.left == p)
-				   z = n.right;
-			   else
-				   z = n.left;
-		   if (p == null) {
-			   t.color = BLACK;
-			   t = null;
-		   }
-		   else
-			   if (p.color == BLACK)
-				   t = null;
-			   else
-				   if (z.color == RED) {
-					   p.color = BLACK;
-					   z.color = BLACK;
-					   n.color = RED;
-					   t = n;
-				   }
-				   else
-					   if (t == p.right && p == n.left) {
-						   leftRotate(p);
-						   t = p;
-					   }
-					   else
-						   if (t == p.left && p == n.right) {
-							   rightRotate(p);
-							   t = p;
-						   }
-						   else {
-							   if (t == p.left && p == n.left)
-								   rightRotate(n);
-							   else
-								   if (t == p.right && p == n.right)
-									   leftRotate(n);
-							   p.color = BLACK;
-							   n.color = RED;
-							   t = null;
-						   }
-	   }
-        }
+       if (t == this.root || t.parent == this.root)
+    	   this.root.color = BLACK;
+       else{
+    	   while (t != null) {
+    		   Nodo p = t.parent;
+    		   Nodo n;
+    		   if (p != null)
+    			   n = p.parent;
+    		   else
+    			   n = null;
+    		   Nodo z;
+    		   if (n == null)
+    			   z = null;
+    		   else
+    			   if (n.left == p)
+    				   z = n.right;
+    			   else
+    				   z = n.left;
+    		   if (p == null) {
+    			   t.color = BLACK;
+    			   messaggio += "\n" + t.key + "diventa nero";
+    			   t = null;
+    		   }
+    		   else
+    			   if (p.color == BLACK)
+    				   t = null;
+    			   else
+    				   if (z != null && z.color == RED) {
+    					   p.color = BLACK;
+    					   messaggio += "\n" + p.key + " diventa nero";
+    					   z.color = BLACK;
+    					   messaggio += "\n" + z.key + " diventa nero";
+    					   n.color = RED;
+    					   messaggio += "\n" + n.key + " diventa rosso";
+    					   t = n;
+    				   }
+    				   else
+    					   if (t == p.right && p == n.left) {
+    						   leftRotate(p);
+    						   t = p;
+    						   messaggio += "\nil figlio destro di " + n.key + " diventa il padre di " + n.key;
+    					   }
+    					   else
+    						   if (t == p.left && p == n.right) {
+    							   rightRotate(p);
+    							   t = p;
+    							   messaggio += "\nil figlio sinistro di " + n.key + " diventa il padre di " + n.key;
+    						   }
+    						   else {
+    							   if (t == p.left && p == n.left) {
+    								   p = rightRotate(n);
+    								   messaggio += "\nil figlio sinistro di " + n.key + " diventa il padre di " + n.key;
+    							   }
+    							   else
+    								   if (t == p.right && p == n.right) {
+    									   p = leftRotate(n);
+    									   messaggio += "\nil figlio destro di " + n.key + " diventa il padre di " + n.key;
+    								   }
+    							   p.color = BLACK;
+    							   messaggio += "\n" + p.key + " diventa nero";
+    							   n.color = RED;
+    							   messaggio += "\n" + n.key + " diventa rosso";
+    							   t = null;
+    						   }
+    	   }
+       }
+       return messaggio;
    }
       
     	
