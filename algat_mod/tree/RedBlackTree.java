@@ -105,7 +105,7 @@ public class RedBlackTree {
     			messaggio += link(u.parent, t, x);
     			if (u.color == BLACK)
                                 //ribilancio l'albero tramite la chiamata alla funzione deleteFixup()
-    				messaggio += deleteFixup(t);
+    				messaggio += deleteFixup(u);
     			if (u.parent == null)
     				this.root = t;
                         //elimino il nodo
