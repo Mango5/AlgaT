@@ -17,21 +17,17 @@ import javafx.stage.Stage;
  * @author chiaramengoli
  */
 public class AlgaT_mod extends Application {
-    
-    int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
-    int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
-    
+    //dimensioni dello schermo
+    public static final int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
+    public static final int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
+    public static  int sceneWidth = 0;
+    public static  int sceneHeight = 0;
     @Override
     public void start(Stage stage) throws Exception {    
-        
-        
-        
+        //caricamento della pagina iniziale, la pagina iniziale è un file .fxml
        BorderPane root = FXMLLoader.load(getClass().getResource("fxml/PaginaIniziale.fxml"));
 
-   
-       // Responsive Design
-        int sceneWidth = 0;
-        int sceneHeight = 0;
+       // creazione di un design responsive, le dimensioni dell'applicazione sono calcolate in proporzione alla dimensione dello schermo
         if (screenWidth <= 800 && screenHeight <= 600) {
             sceneWidth = 600;
             sceneHeight = 350;
@@ -43,10 +39,10 @@ public class AlgaT_mod extends Application {
             sceneHeight = 650;
         }
 
-        // Scene       
+        // creazione di una nuova istanza dell'oggeto scene
        Scene scene = new Scene(root,sceneWidth,sceneHeight);
-      // Scene scene  = new  Scene(root);
         stage.setResizable(true);
+        //visualizzazione della scene
         stage.setScene(scene);
         stage.show();
     }

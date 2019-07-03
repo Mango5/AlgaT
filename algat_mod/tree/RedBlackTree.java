@@ -1,31 +1,31 @@
 package algat_mod.tree;
 
+
 import javafx.scene.paint.Color;
 
 public class RedBlackTree {
 	
     public Nodo root;
-	//Colore per un nodo rosso
+    //Colore per un nodo rosso
     protected static final Color RED = Color.RED;
-
     //Colore per un nodo nero
     protected static final Color BLACK = Color.BLACK;
     
 	public RedBlackTree(){         
 		this.root = null;
 	}
-	
-	 public void setRoot(Nodo root){
+	//setto la radice e imposto il colore a BLACK
+	public void setRoot(Nodo root){
              this.root = root;
              this.root.color = BLACK;
-	    }
+        }
 	
 	 
     //ritorna il nodo se nell'albero con radice root e' presente un nodo con chiave id
     public Nodo find(int id){
             Nodo current = root; //la ricerca parte dalla radice
             while(current!=null){
-                    if(current.key==id){
+                    if(current.key==id){ //se il nodo corrente ha chiave id; ritorno il nodo corrente
                             return current;
                     }else if(id < current.key){
                             current = current.left;//scendo nel ramo sx se la chiave che stiamo cercando e' minore della chiave del nodo corrente
@@ -38,12 +38,18 @@ public class RedBlackTree {
 	
 	
     public String treeFind(int key){
+        //cerco se nell'albero è presente un nodo con chiave key
         Nodo find =  find(key);
        if(find != null){
-           return "Il nodo con chiave " + key + " e' stato trovato";
+           return "Il nodo con chiave " + key + " è stato trovato";
        }
        return "Nell'albero non esiste un nodo con chiave " + key;
-    }   
+    }  
+        
+	
+     
+        
+   
     
     public String link(Nodo p, Nodo u, int x) {
     	String messaggio = "";
@@ -74,14 +80,16 @@ public class RedBlackTree {
     
     public String treeDelete(int x) {
     	String messaggio = "";
+         //cerco se nell'albero è presente un nodo con chiave key
     	Nodo u = this.find(x);
+        //se ho trovato un nodo 
     	if (u!= null) {
-    		if (u == this.root && u.left == null && u.right == null) {
+    		if (u == this.root && u.left == null && u.right == null) { //se u è il nodo radice di un albero con un solo nodo
     			this.root = null;
     			messaggio += "la radice viene settata a null e l'albero non esiste piu'";
     		}
     		else {
-    			if (u.left != null && u.right != null) {
+    			if (u.left != null && u.right != null) { //se u ha entrambi i figli null
     				Nodo s = u.right;
     				while (s.left != null)
     					s = s.left;
@@ -90,24 +98,25 @@ public class RedBlackTree {
     				u = s;
     			}
     			Nodo t;
-    			if (u.left != null && u.right == null)
+    			if (u.left != null && u.right == null) //se u ha il figlio sx mentre il figlio dx è null
     				t = u.left;
-    			else
+                        else  //se u ha il figlio dx mentre il figlio sx è null
     				t = u.right;
     			messaggio += link(u.parent, t, x);
     			if (u.color == BLACK)
+                                //ribilancio l'albero tramite la chiamata alla funzione deleteFixup()
     				messaggio += deleteFixup(t);
     			if (u.parent == null)
     				this.root = t;
+                        //elimino il nodo
     			u = null;
     		}
     	}
-    	//while (this.root.parent != null)
-    		//this.root = this.root.parent;
     	return messaggio;
     }
-	
-    protected String deleteFixup(Nodo t){
+    
+    //funzione che permette di ribilanciare i colori dei nodi dell'albero dopo la cancellazione di un nodo
+     protected String deleteFixup(Nodo t){
     	String messaggio = "";
     	while (t != this.root && t.color == BLACK) {
     		Nodo p = t.parent;
@@ -195,38 +204,44 @@ public class RedBlackTree {
     }
 		
 	
+    //funzione che applica la rotazione sinistra su un nodo (@param node);
+    protected Nodo leftRotate(Nodo node)
+    {
+        //assegno a y il figlio dx di node
+	Nodo y = node.right;
+        //assegno al figlio dx di node il figlio sx di y
+	node.right = y.left;
+	if (y.left != null)
+	    y.left.parent = node;
+
+	//y  diventa la radice del sottoalbero per il quale x era la radice
+	y.parent = node.parent;
 	
-	//rotazione sx su un nodo (node); il figlio dx di node diventa il padre di node
-    protected Nodo leftRotate(Nodo node){
-    	Nodo y = node.right;
-	// Swap the in-between subtree from y to x.
-    	node.right = y.left;
-    	if (y.left != null)
-    		y.left.parent = node;
-	// Make y the root of the subtree for which x was the root.
-    	y.parent = node.parent;
-	
-	// If x is the root of the entire tree, make y the root.
-	// Otherwise, make y the correct child of the subtree's
-	// parent.
-    	if (node.parent == null)
-    		root = y;
-    	else 
-    		if (node == node.parent.left)
-    			node.parent.left = y;
-    		else
-    			node.parent.right = y;
-	// Relink x and y.
-    	y.left = node;
-    	node.parent = y;
-    	return y;
+	/*Se node è la radice dell'intero albero,
+           y diventerà la radice, 
+          altrimenti y diventerà il figlio del genitore del sottoalbero.
+        */
+	if (root == node)
+	    root = y;
+	else {
+	    if (node == node.parent.left)
+		node.parent.left = y;
+	    else
+		node.parent.right = y;
+        }
+	// Ricollego i nodi y e node.
+	y.left = node;
+	node.parent = y;
+        return y;
     }
     
     
-  //rotazione dx su un nodo (@param node); il figlio sx di node diventa il padre di node
-    protected Nodo rightRotate(Nodo node){
-	Nodo y = (Nodo) node.left;
-
+   //funzione che applica la rotazione sinistra su un nodo (@param node);
+    protected Nodo rightRotate(Nodo node)
+   {
+        //assegno a y il figlio sx di node
+	Nodo y = node.left;
+        // assegno al figlio sx di node il figlio dx di y
 	node.left = y.right;
 	if (node.left != null)
 	    y.right.parent = node;
@@ -238,19 +253,23 @@ public class RedBlackTree {
 
 	if (root == node)
 	    root = y;
-	else
+        else{
 	    if (y.parent.left == node)
 		y.parent.left = y;
 	    else
 		y.parent.right = y;
-	return y;
+        }
+       return y;
    }
     
-   
+
    public String treeInsert(int x) {
-	   String messaggio = "";
-	   Nodo n = new Nodo(x);
+        String messaggio = "";
+        //istanzio un nuovo oggetto Nodo con chiave x
+        Nodo n = new Nodo(x);
+        //se la radice dell'albero è null
        if(this.root == null) {
+           //imposto il nodo n come la radice dell'albero
     	   this.setRoot(n);
     	   messaggio += "La radice e' stata settata a " + x;
        }
@@ -268,6 +287,7 @@ public class RedBlackTree {
     		   u.key = x;
     	   else {
     		   messaggio += link(p, n, x);
+                   //ribilancio l'albero tramite la chiamata alla funzione insertFixup()
     		   messaggio += insertFixup(n);
     	   }
     	   while (n.parent != null)
@@ -276,6 +296,7 @@ public class RedBlackTree {
        return messaggio;
    }
    
+   //funzione che permette di ribilanciare i colori dei nodi dell'albero dopo l'inserimento di un nuovo nodo
    public String insertFixup(Nodo t) {
 	   String messaggio = "";
 	   t.color = RED;

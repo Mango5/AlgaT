@@ -25,72 +25,68 @@ import javafx.stage.Stage;
 
 public class PaginaInizialeController implements Initializable {
 
-  private   int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
-    private int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
      @FXML private Text txtTesto;
      @FXML private Text txtProg;
-     @FXML private ImageView imgTree;
-      @FXML private Button btnUno;
-      @FXML private Button btnDue;
-       private int sceneWidth = 0;
-       private int sceneHeight = 0;
-    
+     @FXML private Button btnUno;
+     @FXML private Button btnDue;
+
+    /**
+     * Inizializzazione della classe PaginaInizialeController
+     * La classe TutorialController gestisce la pagina PaginaIniziale.fxml
+     */
         @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        if (screenWidth <= 800 && screenHeight <= 600) {
-            sceneWidth = 600;
-            sceneHeight = 350;
-        } else if (screenWidth <= 1280 && screenHeight <= 768) {
-            sceneWidth = 800;
-            sceneHeight = 450;
-        } else if (screenWidth <= 1920 && screenHeight <= 1080) {
-            sceneWidth = 1000;
-            sceneHeight = 650;
-        }
-        txtProg.wrappingWidthProperty().set(sceneWidth - 10);
-        txtTesto.wrappingWidthProperty().set(sceneWidth * 60/100);
-        // TODO
+        //fissa la larghezza massima del testo e permette di andare automaticamente a capo quando necessario
+        txtProg.wrappingWidthProperty().set(AlgaT_mod.sceneWidth - 10);
+        txtTesto.wrappingWidthProperty().set(AlgaT_mod.sceneWidth * 60/100);
+        
+        //funzione che carica la parte di testo riguardante la descrizione del progetto
         loadData();
         
+        //gestione azione click sul bottone per il collegamento al primo tutorial
         btnUno.setOnAction(new EventHandler<ActionEvent>() {
-	@Override public void handle(ActionEvent e){
-            String data = "1";
-            try {
-                
-                Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)e.getSource()).getScene().getWindow();
-                //BorderPane root = FXMLLoader.load(getClass().getResource("fxml/Tutorial.fxml")); 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Tutorial.fxml"));
-                BorderPane root = loader.load();
-                //istanzio un controller e richiamo la funzione che mi setta il titolo del tutorial
-                TutorialController controller = loader.<TutorialController>getController();
-                controller.setData(data);
-                  Scene scene = new Scene(root,sceneWidth,sceneHeight);
-                stageTheEventSourceNodeBelongs.setScene(scene);
-            } catch (IOException ex) {
-                Logger.getLogger(PaginaInizialeController.class.getName()).log(Level.SEVERE, null, ex);
+            @Override public void handle(ActionEvent e){
+                int data = 1;
+                try {
+                    //cattura lo stage da cui è partito l'evento di click
+                    Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)e.getSource()).getScene().getWindow();
+                    //caricamento della pagina Tutorial.fxml
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Tutorial.fxml"));
+                    BorderPane root = loader.load();
+                    //istanzio un controller che mi permette di impostare il titolo del tutorial dinamicamente, tramite la chiamata alla funzione setData()
+                    TutorialController controller = loader.<TutorialController>getController();
+                    controller.setData(data);
+                    //visualizzazione della nuova scene
+                    Scene scene = new Scene(root,AlgaT_mod.sceneWidth,AlgaT_mod.sceneHeight);
+                    stageTheEventSourceNodeBelongs.setScene(scene);
+                } catch (IOException ex) {
+                    Logger.getLogger(PaginaInizialeController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        }
-    });
+        });
         
+         //gestione azione click sul bottone per il collegamento al secondo tutorial
         btnDue.setOnAction(new EventHandler<ActionEvent>() {
-	@Override public void handle(ActionEvent e){
-                String data = "2";
-            try {
-                
-                Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)e.getSource()).getScene().getWindow();
-                 FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Tutorial.fxml"));
-                BorderPane root = loader.load();
-                  //istanzio un controller e richiamo la funzione che mi setta il titolo del tutorial
-                TutorialController controller = loader.<TutorialController>getController();
-                controller.setData(data);
-                  Scene scene = new Scene(root,sceneWidth,sceneHeight);
-                stageTheEventSourceNodeBelongs.setScene(scene);
-            } catch (IOException ex) {
-                Logger.getLogger(PaginaInizialeController.class.getName()).log(Level.SEVERE, null, ex);
+            @Override public void handle(ActionEvent e){
+                    int data = 2;
+                try {
+                    //cattura lo stage da cui è partito l'evento di click
+                    Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)e.getSource()).getScene().getWindow();
+                    //caricamento della pagina Tutorial.fxml
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Tutorial.fxml"));
+                    BorderPane root = loader.load();
+                    //istanzio un controller che mi permette di impostare il titolo del tutorial dinamicamente, tramite la chiamata alla funzione setData()
+                    TutorialController controller = loader.<TutorialController>getController();
+                    controller.setData(data);
+                    //visualizzazione della nuova scene
+                    Scene scene = new Scene(root,AlgaT_mod.sceneWidth,AlgaT_mod.sceneHeight);
+                    stageTheEventSourceNodeBelongs.setScene(scene);
+                } catch (IOException ex) {
+                    Logger.getLogger(PaginaInizialeController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        }
-    });
+        });
        
     } 
   
