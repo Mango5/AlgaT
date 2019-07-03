@@ -24,9 +24,7 @@ public class AlgaT_mod extends Application {
     public static  int sceneHeight = 0;
     @Override
     public void start(Stage stage) throws Exception {    
-        //caricamento della pagina iniziale, la pagina iniziale è un file .fxml
-       BorderPane root = FXMLLoader.load(getClass().getResource("fxml/PaginaIniziale.fxml"));
-
+        
        // creazione di un design responsive, le dimensioni dell'applicazione sono calcolate in proporzione alla dimensione dello schermo
         if (screenWidth <= 800 && screenHeight <= 600) {
             sceneWidth = 600;
@@ -38,7 +36,8 @@ public class AlgaT_mod extends Application {
             sceneWidth = 1000;
             sceneHeight = 650;
         }
-
+        //caricamento della pagina iniziale, la pagina iniziale è un file .fxml
+       BorderPane root = FXMLLoader.load(getClass().getResource("fxml/PaginaIniziale.fxml"));
         // creazione di una nuova istanza dell'oggeto scene
        Scene scene = new Scene(root,sceneWidth,sceneHeight);
         stage.setResizable(true);
