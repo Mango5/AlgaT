@@ -162,7 +162,21 @@ public class TutorialController implements Initializable {
     }
     
     public void btnForward_Clicked(){
-        //riattivo il thread
+    	if(h<c&&h>-1) {
+    		h++;
+            if(matrice[h][1]==1) { 
+            //se l'ultima azione è stata una cancelazione allora reinserisco nell'albero il numero cancellato
+            	rbt.treeInsert(matrice[h][0]);
+            	this.ridisegna();
+            	System.out.println(matrice[h][0]);
+            }else {									
+            //se è un inserimento allora cancello il numero inserito
+            	rbt.treeDelete(matrice[h][0]);		
+            	this.ridisegna();
+            	System.out.println(matrice[h][0]);
+            }
+            //con h-- "punto" all'azione precedente nel caso voglia cambiare anche quella
+        }
     }
     
     
