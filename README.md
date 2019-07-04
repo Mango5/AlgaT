@@ -2,7 +2,7 @@
 
 Progetto di Algoritimi e strutture dati, corso di Laurea Triennale di Informatica, Università di Bologna.
 
-## Table of contents
+## Indice
 * [Informazioni generali](#Informazioni-generali)
 * [Tecnologie](#Tecnologie)
 * [Autori](#Autori)
