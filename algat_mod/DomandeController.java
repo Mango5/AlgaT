@@ -1,9 +1,10 @@
+package algat_mod;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package algat_mod;
+
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -48,44 +49,86 @@ public class DomandeController implements Initializable{
     }
     
      public void setData(String data) throws IOException{
-         //istanzio un FileReader a cui passo come parametro il percorso del file da leggere
          file =new FileReader(data);
-         //istanzio un BufferedReader che legge e 'bufferizza' il contenuto del file per permettere un'efficiente lettura
          reader=new BufferedReader(file);
           spiegazione = false;
         try {
-            /* readLine() --> Legge una riga di testo. Una riga è considerata terminata da una qualsiasi delle linee di alimentazione ('\n'), 
-            un ritorno in carrozza ('\r'), o un ritorno in carrozza seguito immediatamente da un'alimentazione di linea.
-            */
             txtDomanda.setText(reader.readLine());
         } catch (IOException ex) {
             Logger.getLogger(DomandeController.class.getName()).log(Level.SEVERE, null, ex);
         }
      }
-     
+     public void esci() {
+    	 Stage stage=(Stage) btnConferma.getScene().getWindow();
+ 		stage.close();
+ 		BorderPane root;
+ 		try {
+ 			root = FXMLLoader.load(getClass().getResource("fxml/PaginaIniziale.fxml"));
+ 			int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
+ 		    int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
+ 			int sceneWidth = 0;
+ 	        int sceneHeight = 0;
+ 	        if (screenWidth <= 800 && screenHeight <= 600) {
+ 	            sceneWidth = 600;
+ 	            sceneHeight = 350;
+ 	        } else if (screenWidth <= 1280 && screenHeight <= 768) {
+ 	            sceneWidth = 800;
+ 	            sceneHeight = 450;
+ 	        } else if (screenWidth <= 1920 && screenHeight <= 1080) {
+ 	            sceneWidth = 1000;
+ 	            sceneHeight = 650;
+ 	        }
+
+ 	        // Scene       
+ 	       Scene scene = new Scene(root,sceneWidth,sceneHeight);
+ 	      // Scene scene  = new  Scene(root);
+ 	        stage.setResizable(true);
+ 	        stage.setScene(scene);
+ 	        stage.show();
+ 		} catch (IOException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
+ 	}
      public void btnConferma_Clicked(){
          try {
-                    if(this.spiegazione==false) {
-                            /*
-                                contrassegna la posizione corrente nel flusso di lettura del testo
-                            */
+        	 
+                    if(this.spiegazione==false) {			   
                             reader.mark(10000);
-                            //confronto il testo inserito dall'utente nel TextField txtRisposta con la risposta scritta sul file, se coincidono
-                            if(this.txtRisposta.getText().equals(reader.readLine())) {
-                                    this.txtRisultato.setText(reader.readLine());
-                                    this.spiegazione=true;
-                                    this.btnConferma.setText("Continua");
-                            }else {
-                                    this.txtRisultato.setText("risposta errata");
-                                    //riposiziona il punto del flusso di testo al punto precedente (torna indietro con la posizione)
-                                    reader.reset();
-                            }
+                            String a=reader.readLine(),b="";
+                            int c=0;
+                            Boolean Trovato = false;
+                            while (c<a.length() && Trovato==false){
+                    			while(a.charAt(c)!=',') {
+                    				b=b+a.charAt(c);
+                    				c++;
+                    			}
+                    			if(this.txtRisposta.getText().equals(b)) {
+                                    Trovato=true;
+                    			}
+                    			b="";
+                    			c++;
+                    		}
+                            if(Trovato==true) {
+                                this.txtRisultato.setText(reader.readLine());
+                                this.spiegazione=true;
+                                this.btnConferma.setText("Continua");
+                			}else {
+                                this.txtRisultato.setText("risposta errata");
+                                reader.reset();
+                			}
                     }else {
                             this.txtRisposta.setText("");
                             this.txtDomanda.setText(reader.readLine());
                             this.txtRisultato.setText("");
                             this.btnConferma.setText("Conferma");
                             this.spiegazione=false;
+                    }
+                    reader.mark(10000);
+                    if(reader.readLine()==null) {
+                    	esci();
+                    }else {
+                    	reader.reset();
                     }
             }catch (IOException e) {
                     // TODO Auto-generated catch block
