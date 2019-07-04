@@ -89,7 +89,7 @@ public class RedBlackTree {
     			messaggio += "la radice viene settata a null e l'albero non esiste piu'";
     		}
     		else {
-    			if (u.left != null && u.right != null) { //se u ha entrambi i figli null
+    			if (u.left != null && u.right != null) { //se u ha entrambi i figli diversi da null
     				Nodo s = u.right;
     				while (s.left != null)
     					s = s.left;
@@ -100,7 +100,7 @@ public class RedBlackTree {
     			Nodo t;
     			if (u.left != null && u.right == null) //se u ha il figlio sx mentre il figlio dx è null
     				t = u.left;
-                        else  //se u ha il figlio dx mentre il figlio sx è null
+                else  //se u ha il figlio dx mentre il figlio sx è null
     				t = u.right;
     			messaggio += link(u.parent, t, x);
     			if (u.color == BLACK)
@@ -132,13 +132,13 @@ public class RedBlackTree {
     				leftRotate(p);
     			}
     			else
-    				if (ns.color == nd.color && nd.color == BLACK) {
+    				if (ns != null && nd != null && ns.color == nd.color && nd.color == BLACK) {
     					f.color = RED;
     					messaggio += "\n" + f.key + " diventa rosso";
     					t = p;
     				}
     				else
-    					if (ns.color == RED && nd.color == BLACK) {
+    					if (ns != null && nd != null && ns.color == RED && nd.color == BLACK) {
     						ns.color = BLACK;
     						messaggio += "\n" + ns.key + " diventa nero";
     						f.color = RED;
@@ -146,7 +146,7 @@ public class RedBlackTree {
     						rightRotate(f);
     					}
     					else
-    						if(nd.color == RED) {
+    						if(nd != null && nd.color == RED) {
     							f.color = p.color;
     							messaggio += "\n" + f.key + " diventa dello stesso colore di " + p.key;
     							p.color = BLACK;
@@ -155,6 +155,10 @@ public class RedBlackTree {
     							messaggio += "\n" + nd.key + " diventa nero";
     							leftRotate(p);
     							t = this.root;
+    						}
+    						else {
+    							t.parent.right.color = RED;
+    							return messaggio;
     						}
     		}
     		else{
@@ -169,13 +173,13 @@ public class RedBlackTree {
     				leftRotate(p);
     			}
     			else
-    				if (ns.color == nd.color && nd.color == BLACK) {
+    				if (ns != null && nd != null && ns.color == nd.color && nd.color == BLACK) {
     					f.color = RED;
     					messaggio += "\n" + f.key + " diventa rosso";
     					t = p;
     				}
     				else
-    					if (ns.color == RED && nd.color == BLACK) {
+    					if (ns != null && nd != null && ns.color == RED && nd.color == BLACK) {
     						ns.color = BLACK;
     						messaggio += "\n" + ns.key + " diventa nero";
     						f.color = RED;
@@ -183,7 +187,7 @@ public class RedBlackTree {
     						rightRotate(f);
     					}
     					else
-    						if(nd.color == RED) {
+    						if(nd != null && nd.color == RED) {
     							f.color = p.color;
     							messaggio += "\n" + f.key + " diventa dello stesso colore di " + p.key;
     							p.color = BLACK;
@@ -192,6 +196,10 @@ public class RedBlackTree {
     							messaggio += "\n" + nd.key + " diventa nero";
     							leftRotate(p);
     							t = this.root;
+    						}
+    						else {
+    							t.parent.left.color = RED;
+    							return messaggio;
     						}
     		}
     			
@@ -408,6 +416,14 @@ public class RedBlackTree {
     {
     }
     
-   
+    public static void main(String[] args) throws Exception {
+    	RedBlackTree a = new RedBlackTree();
+    	a.treeInsert(1);
+    	a.treeInsert(2);
+    	a.treeInsert(3);
+    	a.treeInsert(4);
+    	a.treeDelete(4);
+    	a.treeDelete(3);
+    }
     
 }
