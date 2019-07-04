@@ -22,4 +22,4 @@ L'applicazione si compone di due parti:
 ## Autori
 * Chiara Mengoli 
 * Bianca Raimondi 
-* Alessandro Amato
+* Alessio Amato
