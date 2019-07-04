@@ -1,5 +1,6 @@
 # AlgaT
-Progetto di Algoritimi e strutture dati
+
+Progetto di Algoritimi e strutture dati, corso di Laurea Triennale di Informatica, Università di Bologna
 
 ## Table of contents
 * [Informazioni generali](#Informazioni-generali)
