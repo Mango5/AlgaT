@@ -20,6 +20,6 @@ L'applicazione si compone di due parti:
 * JavaFX 
 
 ## Autori
-* Chiara Mengoli - @Mango5
+* Chiara Mengoli 
 * Bianca Raimondi 
 * Alessandro Amato
