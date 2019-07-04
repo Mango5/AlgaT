@@ -2,9 +2,23 @@
 Progetto di Algoritimi e strutture dati
 
 ## Table of contents
-* [General info](#general-info)
-* [Technologies](#technologies)
+* [Informazioni generali](#Informazioni-generali)
+* [Tecnologie](#Tecnologie)
+* [Autori](#Autori)
 
-## General info
+## Informazioni generali
+L'applicazione mostra un tutorial sugli alberi bilanciati di ricerca e più in particolare sulla struttura dati "Alberi RedBlack", argomento del progetto. 
 
-## Technologies
+L'applicazione si compone di due parti: 
+ - simulazione interattiva della struttura dati
+ - domande di autoapprendimento
+
+
+## Tecnologie
+* JavaFX SceneBuilder 2.0
+* JavaFX 
+
+## Autori
+* Chiara Mengoli 
+* Bianca Raimondi 
+* Alessandro Amato
