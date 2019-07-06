@@ -296,7 +296,12 @@ public class RedBlackTree {
     	   if (u != null && u.key == x)
     		   u.key = x;
     	   else {
-    		  final Nodo k=p,k1=n;
+		  //Creo un thread (one) dove aggiungo ai commenti ciò che link() ritorna
+		  //mentre il thread one viene eseguito creo il thread two e dopo che il thread one ha finito di modificare
+		   //i commenti il thread two ne aggiunge altri
+		   //Risultato finale: insert numero(thread 1)->Commenti aggiornati(thread 1)->l'albero viene disegnato(main)->fixup albero(thread 2)->commenti aggiornati(thread 2)
+		   //Manca il disegno dell'albero dopo il fixup
+    		  final Nodo k=p,k1=n;//Cast per far funzionare i thread
     		  Thread one=new Thread() {
     			  public void run(){
     				  txtComments.setText(txtComments.getText()+link(k, k1, x)); 
@@ -306,6 +311,7 @@ public class RedBlackTree {
     		  Thread two=new Thread() {
     			  public void run(){
     				  try {
+					  	//il thread two parte con 1 sec di ritardo,servira per visualizzare i commenti uno alla volta
 						Thread.sleep(1000);
 						 //ribilancio l'albero tramite la chiamata alla funzione insertFixup()
 	    				  txtComments.setText(txtComments.getText()+insertFixup(k1));
