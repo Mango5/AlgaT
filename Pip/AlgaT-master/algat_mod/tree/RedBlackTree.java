@@ -3,7 +3,6 @@ package algat_mod.tree;
 
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-
 public class RedBlackTree {
 	
     public Nodo root;
@@ -87,6 +86,7 @@ public class RedBlackTree {
     	if (u!= null) {
     		if (u == this.root && u.left == null && u.right == null) { //se u è il nodo radice di un albero con un solo nodo
     			this.root = null;
+			treeStack.push(this);
     			messaggio += "la radice viene settata a null e l'albero non esiste piu'";
     		}
     		else {
@@ -103,6 +103,7 @@ public class RedBlackTree {
     				t = u.left;
                 else  //se u ha il figlio dx mentre il figlio sx è null
     				t = u.right;
+			treeStack.push(this);
     			messaggio += link(u.parent, t, x);
     			if (u.color == BLACK)
                                 //ribilancio l'albero tramite la chiamata alla funzione deleteFixup()
@@ -281,6 +282,7 @@ public class RedBlackTree {
        if(this.root == null) {
            //imposto il nodo n come la radice dell'albero
     	   this.setRoot(n);
+	   treeStack.push(this);
     	   txtComments.setText("La radice e' stata settata a " + x);
        }
        else {
@@ -293,6 +295,7 @@ public class RedBlackTree {
     		   else
     			   u = u.right;
     	   }
+	   treeStack.push(this);
     	   if (u != null && u.key == x)
     		   u.key = x;
     	   else {
