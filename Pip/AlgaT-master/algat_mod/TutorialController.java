@@ -27,6 +27,7 @@ public class TutorialController implements Initializable {
 
     private int numTutorial; //indica il numero del tutorial
     public  RedBlackTree rbt;
+    public   Stack<RedBlackTree> treeStack; //pila di alberi
     @FXML Button btnFind;
     @FXML Button btnInsert;
     @FXML Button btnDelete;
@@ -60,6 +61,15 @@ public class TutorialController implements Initializable {
     	//////////////////////////
         
         rbt = new RedBlackTree();
+	    
+	//Inizializzo la pila che mi permetterà di memorizzare gli alberi nei vari step dell'esecuzione
+        Stack<RedBlackTree> treeStack = new Stack<RedBlackTree>();
+	/*push() inserisce l'oggetto in cima alla pila
+	 peek() restituisce l'oggetto in cima alla pila senza rimuoverlo
+	 pop() restituisce l'oggetto in cima alla pila rimuovendolo
+	*/
+        treeStack.push(rbt);
+	    
         //fissa la larghezza massima del testo e permette di andare automaticamente a capo quando necessario
          txtComments.wrappingWidthProperty().set(180); 
          
@@ -167,6 +177,8 @@ public class TutorialController implements Initializable {
         rbt.treeInsert(Integer.parseInt(valore),txtComments);
         //visualizzo il messaggio restituito nell'apposito spazio
         txtValore.setText("");
+	//salvo l'albero bilanciato
+        treeStack.push(rbt);
         //ridisegno l'albero
         this.ridisegna();
         //qui registro l'azione inserimento nella matrice
@@ -184,7 +196,8 @@ public class TutorialController implements Initializable {
         //visualizzo il messaggio restituito nell'apposito spazio
         txtComments.setText(messaggio);
         txtValore.setText("");
-       
+	//salvo l'albero bilanciato
+        treeStack.push(rbt);
         //ridisegno l'albero
         this.ridisegna();
         //qui registro l'azione cancella nella matrice
@@ -209,11 +222,11 @@ public class TutorialController implements Initializable {
     }
     
     public void generaAlbero(){
-        //istanzio una nuova classe RedBlackTree e vado a creare un albero tramite la funzione treeInsert()
-        rbt = new RedBlackTree();
         rbt.treeInsert(12,txtComments);
         rbt.treeInsert(7,txtComments);
         
+	//memorizzo l'albero generato per il tutorial 1
+	treeStack.push(rbt);
        //vado a disgnare l'albero nel Pane
        GraficaAlbero tree= new GraficaAlbero();
        Group group= new Group();
