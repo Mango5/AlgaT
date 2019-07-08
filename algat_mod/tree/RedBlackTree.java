@@ -38,10 +38,10 @@ public class RedBlackTree {
 	
 	
     public String treeFind(int key){
-        //cerco se nell'albero è presente un nodo con chiave key
+        //cerco se nell'albero e' presente un nodo con chiave key
         Nodo find =  find(key);
        if(find != null){
-           return "Il nodo con chiave " + key + " è stato trovato";
+           return "Il nodo con chiave " + key + " e' stato trovato";
        }
        return "Nell'albero non esiste un nodo con chiave " + key;
     }  
@@ -80,11 +80,11 @@ public class RedBlackTree {
     
     public String treeDelete(int x) {
     	String messaggio = "";
-         //cerco se nell'albero è presente un nodo con chiave key
+         //cerco se nell'albero e' presente un nodo con chiave key
     	Nodo u = this.find(x);
         //se ho trovato un nodo 
     	if (u!= null) {
-    		if (u == this.root && u.left == null && u.right == null) { //se u è il nodo radice di un albero con un solo nodo
+    		if (u == this.root && u.left == null && u.right == null) { //se u e' il nodo radice di un albero con un solo nodo
     			this.root = null;
     			messaggio += "la radice viene settata a null e l'albero non esiste piu'";
     		}
@@ -98,9 +98,9 @@ public class RedBlackTree {
     				u = s;
     			}
     			Nodo t;
-    			if (u.left != null && u.right == null) //se u ha il figlio sx mentre il figlio dx è null
+    			if (u.left != null && u.right == null) //se u ha il figlio sx mentre il figlio dx e' null
     				t = u.left;
-                else  //se u ha il figlio dx mentre il figlio sx è null
+                else  //se u ha il figlio dx mentre il figlio sx e' null
     				t = u.right;
     			messaggio += link(u.parent, t, x);
     			if (u.color == BLACK)
@@ -227,9 +227,9 @@ public class RedBlackTree {
 	//y  diventa la radice del sottoalbero per il quale x era la radice
 	y.parent = node.parent;
 	
-	/*Se node è la radice dell'intero albero,
-           y diventerà la radice, 
-          altrimenti y diventerà il figlio del genitore del sottoalbero.
+	/*Se node e' la radice dell'intero albero,
+           y diventera'� la radice, 
+          altrimenti y diventera'� il figlio del genitore del sottoalbero.
         */
 	if (root == node)
 	    root = y;
@@ -277,7 +277,7 @@ public class RedBlackTree {
         String messaggio = "";
         //istanzio un nuovo oggetto Nodo con chiave x
         Nodo n = new Nodo(x);
-        //se la radice dell'albero è null
+        //se la radice dell'albero e' null
        if(this.root == null) {
            //imposto il nodo n come la radice dell'albero
     	   this.setRoot(n);
@@ -387,7 +387,7 @@ public class RedBlackTree {
 	
   //ALTEZZA NERA DELL'ALBERO
     //ritorna il numero di nodi black nel percorso dal nodo dato a qualsiasi foglia
-    //BlackHeightException: se il numero di nodi black sul percorso lungo il figlio sx ad arivare a qualsiasi foglia è diverso da 
+    //BlackHeightException: se il numero di nodi black sul percorso lungo il figlio sx ad arivare a qualsiasi foglia e' diverso da 
        //quello sul percorso lungo il figlio dx
      public int blackHeight(Nodo z)
     {

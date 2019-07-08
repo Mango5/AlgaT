@@ -41,7 +41,7 @@ public class TutorialController implements Initializable {
 ///////////////////////////////////////////////////////////////////////////////////////
 //Creazione Matrice 10x2
     public int c;//indica l'ultima azione eseguita
-	public int h;//indica l'ultima azione o quelle precedenti,servir√† a tornare indietro
+	public int h;//indica l'ultima azione o quelle precedenti,servira'† a tornare indietro
 	public int matrice[][];//matrice contenente un numero(colonna 0) e il tipo di azione(inserimento o cancellazione; colonna 1)
 ///////////////////////////////////////////////////////////////////////////////////////      
     
@@ -66,7 +66,7 @@ public class TutorialController implements Initializable {
        hlDomande.setOnAction(new EventHandler<ActionEvent>() {
 	@Override public void handle(ActionEvent e){
             try {
-                //catturo lo stage da cui √® partito l'evento di click
+                //catturo lo stage da cui e' partito l'evento di click
                 Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)e.getSource()).getScene().getWindow();    
                 //caricamento della pagina Domande.fxml
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Domande.fxml"));
@@ -116,7 +116,7 @@ public class TutorialController implements Initializable {
             btnFind.setDisable(false);
             btnInsert.setDisable(true);
             btnDelete.setDisable(true);
-            //genera un albero che verr√† visualizzato subito all'apertura del tutorial
+            //genera un albero che verra'† visualizzato subito all'apertura del tutorial
             this.generaAlbero();
         }else{
             txtTitle.setText("Tutorial 2 - Inserimento e Cancellazione");
@@ -129,7 +129,7 @@ public class TutorialController implements Initializable {
     public void btnFind_Clicked(){
        //catturo il valore inserito dall'utente nel TextField
        String valore= txtValore.getText();
-        //converto la stringa in intero per poter passare il valore alla funzione treeFind() che mi ritorner√† un messaggio
+        //converto la stringa in intero per poter passare il valore alla funzione treeFind() che mi ritornera'† un messaggio
        String messaggio = rbt.treeFind(Integer.parseInt(valore));
        //visualizzo il messaggio restituito nell'apposito spazio
        txtComments.setText(messaggio);
@@ -140,12 +140,12 @@ public class TutorialController implements Initializable {
     public void btnBack_Clicked(){
        if(c > -1) {
         if(matrice[h][1] == 0) { 
-        //se l'ultima azione √® stata una cancelazione allora reinserisco nell'albero il numero cancellato
+        //se l'ultima azione e' stata una cancelazione allora reinserisco nell'albero il numero cancellato
         	rbt.treeInsert(matrice[h][0]);
         	this.ridisegna();
         	System.out.println(matrice[h][0]);
         }else {									
-        //se √® un inserimento allora cancello il numero inserito
+        //se e' un inserimento allora cancello il numero inserito
         	rbt.treeDelete(matrice[h][0]);		
         	this.ridisegna();
         	System.out.println(matrice[h][0]);
@@ -162,7 +162,7 @@ public class TutorialController implements Initializable {
     public void btnInsert_Clicked(){
         //catturo il valore inserito dall'utente nel TextField
         String valore= txtValore.getText();
-        //converto la stringa in intero per poter passare il valore alla funzione treeInsert() che mi ritorner√† un messaggio
+        //converto la stringa in intero per poter passare il valore alla funzione treeInsert() che mi ritornera'† un messaggio
         String messaggio = rbt.treeInsert(Integer.parseInt(valore));
         //visualizzo il messaggio restituito nell'apposito spazio
 	txtComments.setText(messaggio);
@@ -180,7 +180,7 @@ public class TutorialController implements Initializable {
     public void btnDelete_Clicked(){
         //catturo il valore inserito dall'utente nel TextField
         String valore= txtValore.getText();
-        //converto la stringa in intero per poter passare il valore alla funzione treeDelete() che mi ritorner√† un messaggio
+        //converto la stringa in intero per poter passare il valore alla funzione treeDelete() che mi ritornera'† un messaggio
         String messaggio = rbt.treeDelete(Integer.parseInt(valore));
         //visualizzo il messaggio restituito nell'apposito spazio
         txtComments.setText(messaggio);

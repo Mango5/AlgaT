@@ -129,7 +129,7 @@ public class GraficaAlbero {
     }
     
     public Group DisegnaAlbero(RedBlackTree tree, Group group){
-        //se la radice dell'albero è diversa da null
+        //se la radice dell'albero e' diversa da null
         if (tree.root != null) {
             group = this.DisegnaRadice(tree.root, group);
             group = this.DisegnaFigli(tree.root, rootX, rootY, group,1);

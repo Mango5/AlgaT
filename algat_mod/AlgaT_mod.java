@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package algat_mod;
 
 import javafx.application.Application;
@@ -12,10 +7,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-/**
- *
- * @author chiaramengoli
- */
 public class AlgaT_mod extends Application {
     //dimensioni dello schermo
     public static final int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
@@ -36,7 +27,7 @@ public class AlgaT_mod extends Application {
             sceneWidth = 1000;
             sceneHeight = 650;
         }
-        //caricamento della pagina iniziale, la pagina iniziale è un file .fxml
+        //caricamento della pagina iniziale, la pagina iniziale e' un file .fxml
        BorderPane root = FXMLLoader.load(getClass().getResource("fxml/PaginaIniziale.fxml"));
         // creazione di una nuova istanza dell'oggeto scene
        Scene scene = new Scene(root,sceneWidth,sceneHeight);
@@ -46,9 +37,6 @@ public class AlgaT_mod extends Application {
         stage.show();
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) throws Exception {
         launch(args);
     }
