@@ -26,6 +26,7 @@ public class TutorialController implements Initializable {
 
     private int numTutorial; //indica il numero del tutorial
     public  RedBlackTree rbt;
+    public   Stack<RedBlackTree> treeStack; //pila di alberi
     @FXML Button btnFind;
     @FXML Button btnInsert;
     @FXML Button btnDelete;
@@ -41,7 +42,7 @@ public class TutorialController implements Initializable {
 ///////////////////////////////////////////////////////////////////////////////////////
 //Creazione Matrice 10x2
     public int c;//indica l'ultima azione eseguita
-	public int h;//indica l'ultima azione o quelle precedenti,servira'  a tornare indietro
+	public int h;//indica l'ultima azione o quelle precedenti,servira'Â  a tornare indietro
 	public int matrice[][];//matrice contenente un numero(colonna 0) e il tipo di azione(inserimento o cancellazione; colonna 1)
 ///////////////////////////////////////////////////////////////////////////////////////      
     
@@ -59,6 +60,14 @@ public class TutorialController implements Initializable {
     	//////////////////////////
         
         rbt = new RedBlackTree();
+	//Inizializzo la pila che mi permetterÃ  di memorizzare gli alberi nei vari step dell'esecuzione
+        Stack<RedBlackTree> treeStack = new Stack<RedBlackTree>();
+	/*push() inserisce l'oggetto in cima alla pila
+	 peek() restituisce l'oggetto in cima alla pila senza rimuoverlo
+	 pop() restituisce l'oggetto in cima alla pila rimuovendolo
+	*/
+        treeStack.push(rbt);    
+	    
         //fissa la larghezza massima del testo e permette di andare automaticamente a capo quando necessario
          txtComments.wrappingWidthProperty().set(180); 
          
@@ -116,7 +125,7 @@ public class TutorialController implements Initializable {
             btnFind.setDisable(false);
             btnInsert.setDisable(true);
             btnDelete.setDisable(true);
-            //genera un albero che verra'  visualizzato subito all'apertura del tutorial
+            //genera un albero che verra'Â  visualizzato subito all'apertura del tutorial
             this.generaAlbero();
         }else{
             txtTitle.setText("Tutorial 2 - Inserimento e Cancellazione");
@@ -129,7 +138,7 @@ public class TutorialController implements Initializable {
     public void btnFind_Clicked(){
        //catturo il valore inserito dall'utente nel TextField
        String valore= txtValore.getText();
-        //converto la stringa in intero per poter passare il valore alla funzione treeFind() che mi ritornera'  un messaggio
+        //converto la stringa in intero per poter passare il valore alla funzione treeFind() che mi ritornera'Â  un messaggio
        String messaggio = rbt.treeFind(Integer.parseInt(valore));
        //visualizzo il messaggio restituito nell'apposito spazio
        txtComments.setText(messaggio);
@@ -162,12 +171,13 @@ public class TutorialController implements Initializable {
     public void btnInsert_Clicked(){
         //catturo il valore inserito dall'utente nel TextField
         String valore= txtValore.getText();
-        //converto la stringa in intero per poter passare il valore alla funzione treeInsert() che mi ritornera'  un messaggio
+        //converto la stringa in intero per poter passare il valore alla funzione treeInsert() che mi ritornera'Â  un messaggio
         String messaggio = rbt.treeInsert(Integer.parseInt(valore));
         //visualizzo il messaggio restituito nell'apposito spazio
 	txtComments.setText(messaggio);
         txtValore.setText("");
-        
+        //salvo l'albero bilanciato
+        treeStack.push(rbt);
         //ridisegno l'albero
         this.ridisegna();
         //qui registro l'azione inserimento nella matrice
@@ -180,12 +190,13 @@ public class TutorialController implements Initializable {
     public void btnDelete_Clicked(){
         //catturo il valore inserito dall'utente nel TextField
         String valore= txtValore.getText();
-        //converto la stringa in intero per poter passare il valore alla funzione treeDelete() che mi ritornera'  un messaggio
+        //converto la stringa in intero per poter passare il valore alla funzione treeDelete() che mi ritornera'Â  un messaggio
         String messaggio = rbt.treeDelete(Integer.parseInt(valore));
         //visualizzo il messaggio restituito nell'apposito spazio
         txtComments.setText(messaggio);
         txtValore.setText("");
-       
+       //salvo l'albero bilanciato
+        treeStack.push(rbt);
         //ridisegno l'albero
         this.ridisegna();
         //qui registro l'azione cancella nella matrice
@@ -210,11 +221,10 @@ public class TutorialController implements Initializable {
     }
     
     public void generaAlbero(){
-        //istanzio una nuova classe RedBlackTree e vado a creare un albero tramite la funzione treeInsert()
-        rbt = new RedBlackTree();
         rbt.treeInsert(12);
         rbt.treeInsert(7);
-        
+        //memorizzo l'albero generato per il tutorial 1
+	treeStack.push(rbt);
        //vado a disgnare l'albero nel Pane
        GraficaAlbero tree= new GraficaAlbero();
        Group group= new Group();
