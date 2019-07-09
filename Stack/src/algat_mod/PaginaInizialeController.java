@@ -1,4 +1,4 @@
-package algat_mod;
+package Stack.src.algat_mod;
 
 import java.io.IOException;
 import java.net.URL;

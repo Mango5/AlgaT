@@ -1,4 +1,4 @@
-package algat_mod.tree;
+package Stack.src.algat_mod.tree;
 
 import javafx.scene.paint.Color;
 

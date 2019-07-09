@@ -1,6 +1,6 @@
-package algat_mod;
+package Stack.src.algat_mod;
 
-import algat_mod.tree.*;
+import Stack.src.algat_mod.tree.*;
 
 import javafx.scene.Group;
 import javafx.scene.control.Label;
