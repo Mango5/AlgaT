@@ -1,15 +1,15 @@
-Quanti figli può avere un nodo di un albero binario di ricera bilanciato?
+Quanti figli puo' avere un nodo di un albero binario di ricera bilanciato?
 due,Due,2,
-La parola "Binario" indica che ogni nodo può avere massimo 2 figli.
-In che ordine rientra la complessità temporale dell'operazione di ricerca di un albero red-black? 
-O(log n),o(log n),
+La parola "Binario" indica che ogni nodo puo' avere massimo 2 figli.
+In che ordine rientra la complessita' temporale dell'operazione di ricerca di un albero red-black? 
+O(log n),o(log n),log n,
 Grazie alla loro struttura l'operazione di ricerca rientra in O(log n)
 Negli Alberi red-black il numero di nodi neri e' diverso se si seguono di cammini diversi,vero o falso?
 falso,non e' vero,
-Una delle proprietà degli alberi red-black impone che ogni cammino abbia lo stesso numero di nodi neri
-In un'albero red-black,se un nodo e' nero allora i suoi figli sono per forza rossi,e' vero?
+Una delle proprieta' degli alberi red-black impone che ogni cammino abbia lo stesso numero di nodi neri
+In un'albero red-black, se un nodo e' nero allora i suoi figli sono per forza rossi,e' vero?
 no e' falso,non e' vero,falso,Non e' vero,No e' falso,no,No,Falso,
 I nodi neri possono avere figli neri o rossi,sono i nodi rossi che possono avere solo figli neri
-Un albero composto da una radice nera e due figli neri può essere considerato RedBlack?
-si,Si,si puo avere solo nodi neri,Si puo avere solo nodi neri,si può esserlo,Si può esserlo,
-Può esserlo considerato dato che non infrange nessuna proprietà degli alberi RedBlack
+Un albero composto da una radice nera e due figli neri puo' essere considerato RedBlack?
+si,Si,si puo avere solo nodi neri,Si puo avere solo nodi neri,si puo' esserlo,Si puo' esserlo,
+Puo' esserlo considerato dato che non infrange nessuna proprietà degli alberi RedBlack
