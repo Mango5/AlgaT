@@ -222,6 +222,10 @@ public class TutorialController implements Initializable {
         rbt.treeInsert(1,txtComments,txtCommentsHidden,true);
         rbt.treeInsert(2,txtComments,txtCommentsHidden,true);
         rbt.treeInsert(8,txtComments,txtCommentsHidden,true);
+        rbt.treeInsert(4,txtComments,txtCommentsHidden,true);
+        rbt.treeInsert(6,txtComments,txtCommentsHidden,true);
+        rbt.treeInsert(12,txtComments,txtCommentsHidden,true);
+        rbt.treeInsert(9,txtComments,txtCommentsHidden,true);
         //vado a disgnare l'albero nel Pane
         GraficaAlbero tree= new GraficaAlbero();
         Group group= new Group();
