@@ -36,7 +36,7 @@
                <font>
                   <Font name="System Bold" size="13.0" />
                </font></Button>
-            <Button fx:id="btnDue" layoutY="79.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="200.0" style="-fx-background-color: blue; -fx-border-color: blue; -fx-border-radius: 3;" text="Insert() e Delete()" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <Button fx:id="btnDue" layoutY="79.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="200.0" style="-fx-background-color: blue; -fx-border-color: blue; -fx-border-radius: 3;" text="Inserimento e Cancellazione" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
             <Text layoutX="32.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MENU'" textAlignment="CENTER" wrappingWidth="201.6279296875" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="18.0" />
