@@ -81,9 +81,9 @@ public class TutorialController implements Initializable {
                        DomandeController controller = loader.<DomandeController>getController();
                        //carico il file delle domande relativo al tutorial attuale
                        if(numTutorial == 1)
-                            controller.setData("/home/alessio/Scrivania/Domande/DomandeTutorial1");
+                            controller.setData("C:/Users/bianc/OneDrive/Documenti/GitHub/AlgaT/algat_mod/domande/DomandeTutorial1");
                        else 
-                           controller.setData("/home/alessio/Scrivania/Domande/DomandeTutorial2");
+                           controller.setData("C:/Users/bianc/OneDrive/Documenti/GitHub/AlgaT/algat_mod/domande/DomandeTutorial2");
                        //visualizzazione della nuova scene
                        Scene scene = new Scene(root,AlgaT_mod.sceneWidth,AlgaT_mod.sceneHeight);
                        stageTheEventSourceNodeBelongs.setScene(scene);
