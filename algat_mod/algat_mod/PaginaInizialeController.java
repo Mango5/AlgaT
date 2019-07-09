@@ -1,4 +1,4 @@
-package algat_mod;
+package algat_mod.algat_mod;
 
 import java.io.IOException;
 import java.net.URL;

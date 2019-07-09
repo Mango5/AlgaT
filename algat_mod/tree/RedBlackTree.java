@@ -1,7 +1,7 @@
 package algat_mod.tree;
 
-
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 public class RedBlackTree {
 	
@@ -78,15 +78,15 @@ public class RedBlackTree {
     	return messaggio;
     }
     
-    public String treeDelete(int x) {
-    	String messaggio = "";
-         //cerco se nell'albero e' presente un nodo con chiave key
+    public void treeDelete(int x,Text txtComments,Text txtCommentsHidden) {
+    	txtComments.setText("");
+         //cerco se nell'albero è presente un nodo con chiave key
     	Nodo u = this.find(x);
         //se ho trovato un nodo 
     	if (u!= null) {
-    		if (u == this.root && u.left == null && u.right == null) { //se u e' il nodo radice di un albero con un solo nodo
+    		if (u == this.root && u.left == null && u.right == null) { //se u è il nodo radice di un albero con un solo nodo
     			this.root = null;
-    			messaggio += "la radice viene settata a null e l'albero non esiste piu'";
+    			txtComments.setText("la radice viene settata a null e l'albero non esiste piu'");
     		}
     		else {
     			if (u.left != null && u.right != null) { //se u ha entrambi i figli diversi da null
@@ -98,23 +98,35 @@ public class RedBlackTree {
     				u = s;
     			}
     			Nodo t;
-    			if (u.left != null && u.right == null) //se u ha il figlio sx mentre il figlio dx e' null
+    			if (u.left != null && u.right == null) { //se u ha il figlio sx mentre il figlio dx è null
     				t = u.left;
-                else  //se u ha il figlio dx mentre il figlio sx e' null
+    			}else {  //se u ha il figlio dx mentre il figlio sx è null
     				t = u.right;
-    			messaggio += link(u.parent, t, x);
-    			if (u.color == BLACK)
-                                //ribilancio l'albero tramite la chiamata alla funzione deleteFixup()
-    				messaggio += deleteFixup(u);
-    			if (u.parent == null) {
-    				this.root = t;
-    				t.color = BLACK;
+    				txtComments.setText(txtComments.getText()+link(u.parent, t, x));
+                   //ribilancio l'albero tramite la chiamata alla funzione deleteFixup()
     			}
+    			/*final Nodo k=u;
+    			Thread five=new Thread() {
+    	    		  public void run(){
+    	    			  try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+    	    			  if (k.color == BLACK)
+    	    	    		 txtCommentsHidden.setText(txtCommentsHidden.getText()+deleteFixup(k)+"nigga");
+    	    			  }
+    	    		  };*/
+    	    		  if (u.color == BLACK) {
+ 	    	    		 txtCommentsHidden.setText(txtCommentsHidden.getText()+deleteFixup(u));
+ 	    			  }
+				if (u.parent == null)
+    				this.root = t;
                         //elimino il nodo
     			u = null;
     		}
     	}
-    	return messaggio;
     }
     
     //funzione che permette di ribilanciare i colori dei nodi dell'albero dopo la cancellazione di un nodo
@@ -273,15 +285,15 @@ public class RedBlackTree {
    }
     
 
-   public String treeInsert(int x) {
-        String messaggio = "";
+    public void treeInsert(int x,Text txtComments,Text txtCommentsHidden) {
+        txtComments.setText("");
         //istanzio un nuovo oggetto Nodo con chiave x
         Nodo n = new Nodo(x);
-        //se la radice dell'albero e' null
+        //se la radice dell'albero è null
        if(this.root == null) {
            //imposto il nodo n come la radice dell'albero
     	   this.setRoot(n);
-    	   messaggio += "La radice e' stata settata a " + x;
+    	   txtComments.setText("La radice e' stata settata a " + x);
        }
        else {
     	   Nodo p = null;
@@ -296,14 +308,35 @@ public class RedBlackTree {
     	   if (u != null && u.key == x)
     		   u.key = x;
     	   else {
-    		   messaggio += link(p, n, x);
-                   //ribilancio l'albero tramite la chiamata alla funzione insertFixup()
-    		   messaggio += insertFixup(n);
+    		  final Nodo k=p,k1=n;
+    		  Thread one=new Thread() {
+    			  public void run(){
+    				  txtComments.setText(txtComments.getText()+link(k, k1, x)); 
+    			  }
+    		  };
+    		  one.start();
+    		  Thread two=new Thread(new Runnable() {
+				@Override
+				public void run() {
+					 try {
+						    
+							Thread.sleep(100);
+							 //ribilancio l'albero tramite la chiamata alla funzione insertFixup()
+		    				 
+							txtCommentsHidden.setText(txtCommentsHidden.getText()+insertFixup(k1));
+							
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					
+				}
+    		  });
+    		  two.start();
     	   }
     	   while (n.parent != null)
     		   n = n.parent;
        }
-       return messaggio;
    }
    
    //funzione che permette di ribilanciare i colori dei nodi dell'albero dopo l'inserimento di un nuovo nodo
@@ -418,13 +451,13 @@ public class RedBlackTree {
     {
     }
     
-    public static void main(String[] args) throws Exception {
+    /*public static void main(String[] args) throws Exception {
     	RedBlackTree a = new RedBlackTree();
     	a.treeInsert(1);
     	a.treeInsert(2);
     	a.treeInsert(3);
     	a.treeDelete(3);
     	a.treeDelete(2);
-    }
+    }*/
     
 }

@@ -1,6 +1,6 @@
-package algat_mod;
+package algat_mod.algat_mod;
 
-import algat_mod.tree.*;
+import algat_mod.algat_mod.tree.*;
 
 import java.io.IOException;
 import java.net.URL;

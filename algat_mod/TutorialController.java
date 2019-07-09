@@ -22,12 +22,15 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.application.Platform;
 
 public class TutorialController implements Initializable {
 
     private int numTutorial; //indica il numero del tutorial
     public  RedBlackTree rbt;
+    
     public   Stack<RedBlackTree> treeStack; //pila di alberi
+    
     @FXML Button btnFind;
     @FXML Button btnInsert;
     @FXML Button btnDelete;
@@ -39,19 +42,18 @@ public class TutorialController implements Initializable {
     @FXML TextField txtValore;
     @FXML Pane pnTree;
      @FXML Text txtComments;
+     
+     public Text txtCommentsHidden;
+     public Boolean stepInEsecuzione;
 
 ///////////////////////////////////////////////////////////////////////////////////////
-//Creazione Matrice 10x2
+//Creazione Matrice 10x2(funzione undo)
     public int c;//indica l'ultima azione eseguita
-	public int h;//indica l'ultima azione o quelle precedenti,servira'  a tornare indietro
+	public int h;//indica l'ultima azione o quelle precedenti,servira' a tornare indietro
 	public int matrice[][];//matrice contenente un numero(colonna 0) e il tipo di azione(inserimento o cancellazione; colonna 1)
 ///////////////////////////////////////////////////////////////////////////////////////      
     
-    /**
-     * Inizializzazione della classe TutorialController
-     * La classe TutorialController gestisce la pagina Tutorial.fxml
-     */
-    @Override
+	@Override
     public void initialize(URL url, ResourceBundle rb) {
         
         //inizializzazione matrice
@@ -61,41 +63,35 @@ public class TutorialController implements Initializable {
     	//////////////////////////
         
         rbt = new RedBlackTree();
-	//Inizializzo la pila che mi permetterà di memorizzare gli alberi nei vari step dell'esecuzione
-        Stack<RedBlackTree> treeStack = new Stack<RedBlackTree>();
-	/*push() inserisce l'oggetto in cima alla pila
-	 peek() restituisce l'oggetto in cima alla pila senza rimuoverlo
-	 pop() restituisce l'oggetto in cima alla pila rimuovendolo
-	*/
-        treeStack.push(rbt);    
-	    
-        //fissa la larghezza massima del testo e permette di andare automaticamente a capo quando necessario
-         txtComments.wrappingWidthProperty().set(180); 
-         
-        //gestione azione click sull'hyperlink relativo alle domande
-       hlDomande.setOnAction(new EventHandler<ActionEvent>() {
-	@Override public void handle(ActionEvent e){
-            try {
-                //catturo lo stage da cui e' partito l'evento di click
-                Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)e.getSource()).getScene().getWindow();    
-                //caricamento della pagina Domande.fxml
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Domande.fxml"));
-                BorderPane root = loader.load();
-                //istanzio un controller che mi permette di scegliere il file delle domande da caricare dinamicamente, tramite la chiamata alla funzione setData()
-                DomandeController controller = loader.<DomandeController>getController();
-                //carico il file delle domande relativo al tutorial attuale
-                if(numTutorial == 1)
-                     controller.setData("/Users/chiaramengoli/NetBeansProjects/AlgaT_mod/src/algat_mod/domande/DomandeTutorial1");
-                else 
-                    controller.setData("/Users/chiaramengoli/NetBeansProjects/AlgaT_mod/src/algat_mod/domande/DomandeTutorial2");
-                //visualizzazione della nuova scene
-                Scene scene = new Scene(root,AlgaT_mod.sceneWidth,AlgaT_mod.sceneHeight);
-                stageTheEventSourceNodeBelongs.setScene(scene);
-            } catch (IOException e1) {
-                    e1.printStackTrace();
-            }
-        }
-    });
+       
+	//fissa la larghezza massima del testo e permette di andare automaticamente a capo quando necessario
+                txtComments.wrappingWidthProperty().set(180); 
+                txtCommentsHidden=new Text("");
+                txtCommentsHidden.setVisible(false);
+               //gestione azione click sull'hyperlink relativo alle domande
+              hlDomande.setOnAction(new EventHandler<ActionEvent>() {
+       	@Override public void handle(ActionEvent e){
+                   try {
+                	 //catturo lo stage da cui è partito l'evento di click
+                       Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)e.getSource()).getScene().getWindow();    
+                       //caricamento della pagina Domande.fxml
+                       FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Domande.fxml"));
+                       BorderPane root = loader.load();
+                       //istanzio un controller che mi permette di scegliere il file delle domande da caricare dinamicamente, tramite la chiamata alla funzione setData()
+                       DomandeController controller = loader.<DomandeController>getController();
+                       //carico il file delle domande relativo al tutorial attuale
+                       if(numTutorial == 1)
+                            controller.setData("/home/alessio/Scrivania/Domande/DomandeTutorial1");
+                       else 
+                           controller.setData("/home/alessio/Scrivania/Domande/DomandeTutorial2");
+                       //visualizzazione della nuova scene
+                       Scene scene = new Scene(root,AlgaT_mod.sceneWidth,AlgaT_mod.sceneHeight);
+                       stageTheEventSourceNodeBelongs.setScene(scene);
+                   } catch (IOException e1) {
+                           e1.printStackTrace();
+                   }
+               }
+           });
     
        //gestione azione al click sull'hyperlink relativo alla pagina iniziale
          hlPaginaIniziale.setOnAction(new EventHandler<ActionEvent>() {
@@ -150,13 +146,13 @@ public class TutorialController implements Initializable {
     public void btnBack_Clicked(){
        if(c > -1) {
         if(matrice[h][1] == 0) { 
-        //se l'ultima azione e' stata una cancelazione allora reinserisco nell'albero il numero cancellato
-        	rbt.treeInsert(matrice[h][0]);
+        //se l'ultima azione è stata una cancelazione allora reinserisco nell'albero il numero cancellato
+        	rbt.treeInsert(matrice[h][0],txtComments,txtCommentsHidden);
         	this.ridisegna();
         	System.out.println(matrice[h][0]);
         }else {									
-        //se e' un inserimento allora cancello il numero inserito
-        	rbt.treeDelete(matrice[h][0]);		
+        //se è un inserimento allora cancello il numero inserito
+        	rbt.treeDelete(matrice[h][0],txtComments,txtCommentsHidden);		
         	this.ridisegna();
         	System.out.println(matrice[h][0]);
         }
@@ -166,66 +162,74 @@ public class TutorialController implements Initializable {
     }
     
     public void btnForward_Clicked(){
+    	this.ridisegna();
+    	txtComments.setText(txtCommentsHidden.getText());
+    	txtCommentsHidden.setText("");
+    	btnBack.setDisable(false);
+    	btnDelete.setDisable(false);
+    	btnInsert.setDisable(false);
     }
     
     
     public void btnInsert_Clicked(){
+    	btnBack.setDisable(true);
+    	btnDelete.setDisable(true);
+    	btnInsert.setDisable(true);
         //catturo il valore inserito dall'utente nel TextField
         String valore= txtValore.getText();
-        //converto la stringa in intero per poter passare il valore alla funzione treeInsert() che mi ritornera'  un messaggio
-        String messaggio = rbt.treeInsert(Integer.parseInt(valore));
+        //converto la stringa in intero per poter passare il valore alla funzione treeInsert() che mi ritornerà un messaggio
+        rbt.treeInsert(Integer.parseInt(valore),txtComments,txtCommentsHidden);
         //visualizzo il messaggio restituito nell'apposito spazio
-	txtComments.setText(messaggio);
         txtValore.setText("");
-        //salvo l'albero bilanciato
-        treeStack.push(rbt);
-        //ridisegno l'albero
         this.ridisegna();
+        //ridisegno l'albero
         //qui registro l'azione inserimento nella matrice
         	c = h + 1;
         	h = c;
         	matrice[c][0] = Integer.parseInt(valore);
-        	matrice[c][1] = 1;// l'1 indica l'inserimento       
+        	matrice[c][1] = 1;// l'1 indica l'inserimento        
     }
     
     public void btnDelete_Clicked(){
+    	btnBack.setDisable(true);
+    	btnDelete.setDisable(true);
+    	btnInsert.setDisable(true);
         //catturo il valore inserito dall'utente nel TextField
         String valore= txtValore.getText();
-        //converto la stringa in intero per poter passare il valore alla funzione treeDelete() che mi ritornera'  un messaggio
-        String messaggio = rbt.treeDelete(Integer.parseInt(valore));
+        //converto la stringa in intero per poter passare il valore alla funzione treeDelete() che mi ritornerà un messaggio
+        rbt.treeDelete(Integer.parseInt(valore),txtComments,txtCommentsHidden);
         //visualizzo il messaggio restituito nell'apposito spazio
-        txtComments.setText(messaggio);
         txtValore.setText("");
-       //salvo l'albero bilanciato
-        treeStack.push(rbt);
+       
         //ridisegno l'albero
         this.ridisegna();
         //qui registro l'azione cancella nella matrice
         c = h + 1;
         h = c;
-        matrice[c][0] = Integer.parseInt(txtValore.getText());
+        matrice[c][0] = Integer.parseInt(valore);
         matrice[c][1] = 0; //lo 0 indica la cancellazione
         
     }
     
     public void ridisegna() {
-    	 GraficaAlbero tree= new GraficaAlbero();
-         Group group= new Group();
-         /*
-         *vado a disegnare l'albero rbt, la funzione DisegnaAlbero mi ritorna un Group che contiene tutti gli elementi per        
-         * la visualizzazione grafica dell'albero
-         */
-         group = tree.DisegnaAlbero(rbt, group);
-         //pulisco il Pane per poi riempirlo con il nuovo Group creato
-         pnTree.getChildren().clear();       
-         pnTree.getChildren().add(group);
+    	GraficaAlbero tree= new GraficaAlbero();
+        Group group= new Group();
+        /*
+        *vado a disegnare l'albero rbt, la funzione DisegnaAlbero mi ritorna un Group che contiene tutti gli elementi per        
+        * la visualizzazione grafica dell'albero
+        */
+        group = tree.DisegnaAlbero(rbt, group);
+        //pulisco il Pane per poi riempirlo con il nuovo Group creato
+        pnTree.getChildren().clear();       
+        pnTree.getChildren().add(group);
     }
     
     public void generaAlbero(){
-        rbt.treeInsert(12);
-        rbt.treeInsert(7);
-        //memorizzo l'albero generato per il tutorial 1
-	treeStack.push(rbt);
+    	//istanzio una nuova classe RedBlackTree e vado a creare un albero tramite la funzione treeInsert()
+        rbt = new RedBlackTree();
+        rbt.treeInsert(12,txtComments,txtCommentsHidden);
+        rbt.treeInsert(7,txtComments,txtCommentsHidden);
+        
        //vado a disgnare l'albero nel Pane
        GraficaAlbero tree= new GraficaAlbero();
        Group group= new Group();

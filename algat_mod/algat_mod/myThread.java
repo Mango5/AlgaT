@@ -1,6 +1,7 @@
-package algat_mod;
+package algat_mod.algat_mod;
 
-import algat_mod.tree.RedBlackTree;
+import algat_mod.algat_mod.tree.*;
+
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 

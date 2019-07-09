@@ -22,8 +22,8 @@
                      <padding>
                         <Insets right="1.0" />
                      </padding></Button>
-                  <Button fx:id="btnBack" layoutX="376.0" layoutY="7.0" mnemonicParsing="false" style="-fx-background-color: black;" text="&lt;&lt; Indietro" textFill="WHITE" />
-                  <Button fx:id="btnForward" layoutX="481.0" layoutY="7.0" mnemonicParsing="false" style="-fx-background-color: black;" text="Avanti &gt;&gt;" textFill="WHITE" />
+                  <Button fx:id="btnBack" layoutX="376.0" layoutY="7.0" mnemonicParsing="false" onMouseClicked="#btnBack_Clicked" style="-fx-background-color: black;" text="&lt;&lt; Indietro" textFill="WHITE" />
+                  <Button fx:id="btnForward" layoutX="481.0" layoutY="7.0" mnemonicParsing="false" onMouseClicked="#btnForward_Clicked" style="-fx-background-color: black;" text="Avanti &gt;&gt;" textFill="WHITE" />
                   <Button fx:id="btnInsert" layoutX="234.0" layoutY="7.0" mnemonicParsing="false" onMouseClicked="#btnInsert_Clicked" style="-fx-background-color: white;" text="Inserisci">
                      <padding>
                         <Insets bottom="5.0" left="2.0" right="2.0" top="5.0" />
