@@ -233,8 +233,8 @@ public class RedBlackTree {
     	//y  diventa la radice del sottoalbero per il quale x era la radice
     	y.parent = node.parent;
     	/*Se node e' la radice dell'intero albero,
-           y diventera'  la radice, 
-          altrimenti y diventera'  il figlio del genitore del sottoalbero.
+           y diventera'ï¿½ la radice, 
+          altrimenti y diventera'ï¿½ il figlio del genitore del sottoalbero.
         */
     	if (root == node)
     		root = y;
@@ -274,7 +274,7 @@ public class RedBlackTree {
    }
     
 
-    public void treeInsert(int x,Text txtComments,Text txtCommentsHidden) {
+    public void treeInsert(int x,Text txtComments,Text txtCommentsHidden,Boolean noStep) {
     	txtComments.setText("");
         //istanzio un nuovo oggetto Nodo con chiave x
         Nodo n = new Nodo(x);
@@ -298,12 +298,8 @@ public class RedBlackTree {
         		u.key = x;
         	else {
         		final Nodo k=p,k1=n;
-        		Thread one=new Thread() {
-        			public void run(){
-        				txtComments.setText(txtComments.getText()+link(k, k1, x)); 
-        			}
-        		};
-        		one.start();
+        		txtComments.setText(txtComments.getText()+link(p, n, x)); 
+        	if(noStep==false) {
         		Thread two=new Thread(new Runnable() {
     			@Override
 					public void run() {
@@ -317,6 +313,9 @@ public class RedBlackTree {
 				}
     		  });
     		  two.start();
+        	}else {
+        		txtCommentsHidden.setText(txtCommentsHidden.getText()+insertFixup(n));	
+        	}
     	   }
     	   while (n.parent != null)
     		   n = n.parent;

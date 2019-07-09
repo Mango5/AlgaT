@@ -140,7 +140,7 @@ public class TutorialController implements Initializable {
     	if(c > -1) {
         if(matrice[h][1] == 0) { 
         //se l'ultima azione e' stata una cancellazione allora reinserisco nell'albero il numero cancellato
-        	rbt.treeInsert(matrice[h][0],txtComments,txtCommentsHidden);
+        	rbt.treeInsert(matrice[h][0],txtComments,txtCommentsHidden,true);
         	this.ridisegna();
         	System.out.println(matrice[h][0]);
         }else {									
@@ -171,7 +171,7 @@ public class TutorialController implements Initializable {
         //catturo il valore inserito dall'utente nel TextField
         String valore= txtValore.getText();
         //converto la stringa in intero per poter passare il valore alla funzione treeInsert() che mi ritornera' un messaggio
-        rbt.treeInsert(Integer.parseInt(valore),txtComments,txtCommentsHidden);
+        rbt.treeInsert(Integer.parseInt(valore),txtComments,txtCommentsHidden,false);
         //visualizzo il messaggio restituito nell'apposito spazio
         txtValore.setText("");
         this.ridisegna();
@@ -189,7 +189,7 @@ public class TutorialController implements Initializable {
     	btnInsert.setDisable(true);
         //catturo il valore inserito dall'utente nel TextField
         String valore= txtValore.getText();
-        //converto la stringa in intero per poter passare il valore alla funzione treeDelete() che mi ritornerÃa' un messaggio
+        //converto la stringa in intero per poter passare il valore alla funzione treeDelete() che mi ritornerï¿½a' un messaggio
         rbt.treeDelete(Integer.parseInt(valore),txtComments,txtCommentsHidden);
         //visualizzo il messaggio restituito nell'apposito spazio
         txtValore.setText("");
@@ -216,12 +216,12 @@ public class TutorialController implements Initializable {
     public void generaAlbero(){
     	//istanzio una nuova classe RedBlackTree e vado a creare un albero tramite la funzione treeInsert()
         rbt = new RedBlackTree();
-        rbt.treeInsert(5,txtComments,txtCommentsHidden);
-        rbt.treeInsert(3,txtComments,txtCommentsHidden);
-        rbt.treeInsert(7,txtComments,txtCommentsHidden);
-        rbt.treeInsert(1,txtComments,txtCommentsHidden);
-        rbt.treeInsert(2,txtComments,txtCommentsHidden);
-        rbt.treeInsert(8,txtComments,txtCommentsHidden);
+        rbt.treeInsert(5,txtComments,txtCommentsHidden,true);
+        rbt.treeInsert(3,txtComments,txtCommentsHidden,true);
+        rbt.treeInsert(7,txtComments,txtCommentsHidden,true);
+        rbt.treeInsert(1,txtComments,txtCommentsHidden,true);
+        rbt.treeInsert(2,txtComments,txtCommentsHidden,true);
+        rbt.treeInsert(8,txtComments,txtCommentsHidden,true);
         //vado a disgnare l'albero nel Pane
         GraficaAlbero tree= new GraficaAlbero();
         Group group= new Group();

@@ -1,15 +1,15 @@
-In un albero binario di ricera bilanciato contenente interi, il nodo (7) può avere come figlio destro (8) e sinistro (6)?
+In un albero reblack, il nodo (7) può avere come figlio destro (8) e sinistro (6)?
 si,Si,
-Si poichè da una parte è presente un numero minore del padre e dall'altra parte un numero maggiore
+Si poiche' da una parte e' presente un numero minore del padre e dall'altra parte un numero maggiore
 In che ordine rientra la complessità temporale dell'operazione di inserimento di un albero red-black? 
 O(log n),o(log n),
 Inserimento,cancellazione e ricerca rientrano in O(log n)
 Quanti casi prevede la cancellazione?
-6,sei
-La cancellazione prevede 6 casi dato che dopo la cancellazione l'albero va bilanciato secondo le regole degli alberi red-black
+6,sei,
+La cancellazione prevede 6 casi dato che dopo l'albero va bilanciato secondo le regole degli alberi red-black
 Quanti casi prevede l'inserimento?
 5,cinque,
 Per lo stesso motivo della cancellazione l'inserimento prevede 5 casi
 La radice di un albero red-black non può mai cambiare,vero o falso?
-falso,Non è vero,
+falso,Non e' vero,Falso,
 Per uno dei casi dell'inserimento, il nuovo nodo inserito può diventare la radice dell'albero
