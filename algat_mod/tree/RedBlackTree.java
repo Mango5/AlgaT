@@ -297,7 +297,7 @@ public class RedBlackTree {
         	if (u != null && u.key == x)
         		u.key = x;
         	else {
-        		final Nodo k=p,k1=n;
+        		final Nodo k1=n;
         		txtComments.setText(txtComments.getText()+link(p, n, x)); 
         	if(noStep==false) {
         		Thread two=new Thread(new Runnable() {
