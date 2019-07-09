@@ -8,22 +8,14 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.Initializable;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 
 public class DomandeController implements Initializable{
     @FXML Text txtDomanda;  
@@ -39,18 +31,20 @@ public class DomandeController implements Initializable{
            
     }
     
-     public void setData(String data) throws IOException{
-         file =new FileReader(data);
-         reader=new BufferedReader(file);
-          spiegazione = false;
+    public void setData(String data) throws IOException{
+    	file =new FileReader(data);
+        reader=new BufferedReader(file);
+        spiegazione = false;
         try {
-            txtDomanda.setText(reader.readLine());
-        } catch (IOException ex) {
-            Logger.getLogger(DomandeController.class.getName()).log(Level.SEVERE, null, ex);
+        	txtDomanda.setText(reader.readLine());
         }
-     }
-     public void esci() {
-    	 Stage stage=(Stage) btnConferma.getScene().getWindow();
+        catch (IOException ex) {
+        	Logger.getLogger(DomandeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     
+    public void esci() {
+    	Stage stage=(Stage) btnConferma.getScene().getWindow();
  		stage.close();
  		BorderPane root;
  		try {
@@ -71,8 +65,8 @@ public class DomandeController implements Initializable{
  	        }
 
  	        // Scene       
- 	       Scene scene = new Scene(root,sceneWidth,sceneHeight);
- 	      // Scene scene  = new  Scene(root);
+ 	        Scene scene = new Scene(root,sceneWidth,sceneHeight);
+ 	        // Scene scene  = new  Scene(root);
  	        stage.setResizable(true);
  	        stage.setScene(scene);
  	        stage.show();
@@ -81,49 +75,48 @@ public class DomandeController implements Initializable{
  			e.printStackTrace();
  		}
  	}
-     public void btnConferma_Clicked(){
-         try {
-        	 
-                    if(this.spiegazione==false) {			   
-                            reader.mark(10000);
-                            String a=reader.readLine(),b="";
-                            int c=0;
-                            Boolean Trovato = false;
-                            while (c<a.length() && Trovato==false){
-                    			while(a.charAt(c)!=',') {
-                    				b=b+a.charAt(c);
-                    				c++;
-                    			}
-                    			if(this.txtRisposta.getText().equals(b)) {
-                                    Trovato=true;
-                    			}
-                    			b="";
-                    			c++;
-                    		}
-                            if(Trovato==true) {
-                                this.txtRisultato.setText(reader.readLine());
-                                this.spiegazione=true;
-                                this.btnConferma.setText("Continua");
-                			}else {
-                                this.txtRisultato.setText("risposta errata");
-                                reader.reset();
-                			}
-                    }else {
-                            this.txtRisposta.setText("");
-                            this.txtDomanda.setText(reader.readLine());
-                            this.txtRisultato.setText("");
-                            this.btnConferma.setText("Conferma");
-                            this.spiegazione=false;
+    
+    public void btnConferma_Clicked(){
+    	try {
+    		if(this.spiegazione==false) {			   
+    			reader.mark(10000);
+                String a=reader.readLine(),b="";
+                int c=0;
+                Boolean Trovato = false;
+                while (c<a.length() && Trovato==false){
+                	while(a.charAt(c)!=',') {
+                		b=b+a.charAt(c);
+                    	c++;
                     }
-                    reader.mark(10000);
-                    if(reader.readLine()==null) {
-                    	esci();
-                    }else {
-                    	reader.reset();
+                    if(this.txtRisposta.getText().equals(b)) {
+                    	Trovato=true;
                     }
-            }catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-            }
-     }
+                    b="";
+                    c++;
+                }
+                if(Trovato==true) {
+                	this.txtRisultato.setText(reader.readLine());
+                	this.spiegazione=true;
+                	this.btnConferma.setText("Continua");
+                }else {
+                	this.txtRisultato.setText("risposta errata");
+                	reader.reset();
+                }
+    		}else {
+    			this.txtRisposta.setText("");
+    			this.txtDomanda.setText(reader.readLine());
+    			this.txtRisultato.setText("");
+    			this.btnConferma.setText("Conferma");
+    			this.spiegazione=false;
+    		}
+    		reader.mark(10000);
+    		if(reader.readLine()==null) {
+    			esci();
+    		}else {
+    			reader.reset();
+    		}
+    	}catch (IOException e) {
+    		e.printStackTrace();
+        }	
+     }	
 }

@@ -1,7 +1,6 @@
 package algat_mod;
 
 import algat_mod.tree.*;
-
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
@@ -15,14 +14,14 @@ public class GraficaAlbero {
     //raggio per tutti i cerchi
     double radius; 
     
-   public GraficaAlbero(){
-        rootX=400;
+    public GraficaAlbero(){
+    	rootX=400;
         rootY=50;
         radius=20;
     }
-            
+
     public Group  DisegnaRadice(Nodo root, Group group){
-        Circle node = new Circle();
+    	Circle node = new Circle();
         node.setCenterX(rootX);
         node.setCenterY(rootY);
         node.setRadius(radius);
@@ -34,12 +33,11 @@ public class GraficaAlbero {
         label.setTextFill(Color.WHITE);
         //aggiungo gli elementi creati al Group
         group.getChildren().addAll(node,label);
-         return group;
+        return group;
     }
     
     public Group DisegnaFiglioSx(Nodo node, double parentX, double parentY, Group group, int n){
-
-        //disegna il ramo
+    	//disegna il ramo
         Line line=new Line();
         line.setStartX(parentX);
         line.setStartY(parentY + radius);
@@ -58,8 +56,8 @@ public class GraficaAlbero {
         	label.setLayoutX(line.getEndX() - 9);
         	label.setLayoutY(line.getEndY()+radius - 9);
         	label.setTextFill(Color.WHITE);
-                childsx.setFill(node.color);
-                //aggiungo gli elementi creati al Group
+            childsx.setFill(node.color);
+            //aggiungo gli elementi creati al Group
         	group.getChildren().addAll(line, childsx,label);
         }
         else {
@@ -67,14 +65,12 @@ public class GraficaAlbero {
         	label.setLayoutX(line.getEndX() - 9);
         	label.setLayoutY(line.getEndY()+radius - 9);
         	label.setTextFill(Color.WHITE);
-                childsx.setFill(Color.GREY);
-                //aggiungo gli elementi creati al Group
+            childsx.setFill(Color.GREY);
+            //aggiungo gli elementi creati al Group
         	group.getChildren().addAll(line, childsx,label);
         }
         return group;
-        
     }
-    
     
     public Group DisegnaFiglioDx(Nodo node, double parentX, double parentY,Group group, int n){
         //creo una linea che collega il nodo corrente al suo nodo padre
@@ -88,8 +84,7 @@ public class GraficaAlbero {
         childdx.setCenterX(line.getEndX());
         childdx.setCenterY(line.getEndY()+radius);
         childdx.setRadius(radius);
-       
-       //inserisce una label contenente la chiave del nodo
+        //inserisce una label contenente la chiave del nodo
         if (node != null) {
             String chiave = Integer.toString(node.key);
             Label label = new Label(chiave);
@@ -110,7 +105,6 @@ public class GraficaAlbero {
             group.getChildren().addAll(line, childdx,label);
         }
         return group;
-       
     }
     
     public Group DisegnaFigli(Nodo node, double parentX, double parentY, Group group, int n) {
@@ -124,7 +118,6 @@ public class GraficaAlbero {
             group = this.DisegnaFigli(node.left, parentX-(double)200/n, parentY+ radius + (double)50 + radius, group, n*2);
         if(node.right != null)
             group = this.DisegnaFigli(node.right, parentX+(double)200/n, parentY+ radius + (double)50 + radius, group, n*2);
-      
     	return group;
     }
     

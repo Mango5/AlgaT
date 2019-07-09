@@ -17,19 +17,15 @@ import javafx.scene.control.*;
 import javafx.scene.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.application.Platform;
 
 public class TutorialController implements Initializable {
 
     private int numTutorial; //indica il numero del tutorial
-    public  RedBlackTree rbt;
+    public RedBlackTree rbt;
     
-    public   Stack<RedBlackTree> treeStack; //pila di alberi
+    public Stack<RedBlackTree> treeStack; //pila di alberi
     
     @FXML Button btnFind;
     @FXML Button btnInsert;
@@ -41,77 +37,74 @@ public class TutorialController implements Initializable {
     @FXML Text txtTitle;
     @FXML TextField txtValore;
     @FXML Pane pnTree;
-     @FXML Text txtComments;
+    @FXML Text txtComments;
      
-     public Text txtCommentsHidden;
-     public Boolean stepInEsecuzione;
+    public Text txtCommentsHidden;
+    public Boolean stepInEsecuzione;
 
 ///////////////////////////////////////////////////////////////////////////////////////
 //Creazione Matrice 10x2(funzione undo)
     public int c;//indica l'ultima azione eseguita
-	public int h;//indica l'ultima azione o quelle precedenti,servira' a tornare indietro
+	public int h;//indica l'ultima azione o quelle precedenti, servira' a tornare indietro
 	public int matrice[][];//matrice contenente un numero(colonna 0) e il tipo di azione(inserimento o cancellazione; colonna 1)
 ///////////////////////////////////////////////////////////////////////////////////////      
     
 	@Override
     public void initialize(URL url, ResourceBundle rb) {
-        
         //inizializzazione matrice
-            matrice= new int[10][2];
-            c=-1;
-            h=-1;
-    	//////////////////////////
-        
+        matrice= new int[10][2];
+        c=-1;
+        h=-1;
+        //////////////////////////
         rbt = new RedBlackTree();
-       
-	//fissa la larghezza massima del testo e permette di andare automaticamente a capo quando necessario
-                txtComments.wrappingWidthProperty().set(180); 
-                txtCommentsHidden=new Text("");
-                txtCommentsHidden.setVisible(false);
-               //gestione azione click sull'hyperlink relativo alle domande
-              hlDomande.setOnAction(new EventHandler<ActionEvent>() {
-       	@Override public void handle(ActionEvent e){
-                   try {
-                	 //catturo lo stage da cui è partito l'evento di click
-                       Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)e.getSource()).getScene().getWindow();    
-                       //caricamento della pagina Domande.fxml
-                       FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Domande.fxml"));
-                       BorderPane root = loader.load();
-                       //istanzio un controller che mi permette di scegliere il file delle domande da caricare dinamicamente, tramite la chiamata alla funzione setData()
-                       DomandeController controller = loader.<DomandeController>getController();
-                       //carico il file delle domande relativo al tutorial attuale
-                       if(numTutorial == 1)
-                            controller.setData("C:/Users/bianc/OneDrive/Documenti/GitHub/AlgaT/algat_mod/domande/DomandeTutorial1");
-                       else 
-                           controller.setData("C:/Users/bianc/OneDrive/Documenti/GitHub/AlgaT/algat_mod/domande/DomandeTutorial2");
-                       //visualizzazione della nuova scene
-                       Scene scene = new Scene(root,AlgaT_mod.sceneWidth,AlgaT_mod.sceneHeight);
-                       stageTheEventSourceNodeBelongs.setScene(scene);
-                   } catch (IOException e1) {
-                           e1.printStackTrace();
-                   }
-               }
-           });
+        //fissa la larghezza massima del testo e permette di andare automaticamente a capo quando necessario
+        txtComments.wrappingWidthProperty().set(180); 
+        txtCommentsHidden=new Text("");
+        txtCommentsHidden.setVisible(false);
+        //gestione azione click sull'hyperlink relativo alle domande
+        hlDomande.setOnAction(new EventHandler<ActionEvent>() {
+       	
+        	@Override public void handle(ActionEvent e){
+        		try {
+        			//catturo lo stage da cui e' partito l'evento di click
+                    Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)e.getSource()).getScene().getWindow();    
+                    //caricamento della pagina Domande.fxml
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Domande.fxml"));
+                    BorderPane root = loader.load();
+                    //istanzio un controller che mi permette di scegliere il file delle domande da caricare dinamicamente, tramite la chiamata alla funzione setData()
+                    DomandeController controller = loader.<DomandeController>getController();
+                    //carico il file delle domande relativo al tutorial attuale
+                    if(numTutorial == 1)
+                    	controller.setData("C:/Users/bianc/OneDrive/Documenti/GitHub/AlgaT/algat_mod/domande/DomandeTutorial1");
+                    else 
+                    	controller.setData("C:/Users/bianc/OneDrive/Documenti/GitHub/AlgaT/algat_mod/domande/DomandeTutorial2");
+                    //visualizzazione della nuova scene
+                    Scene scene = new Scene(root,AlgaT_mod.sceneWidth,AlgaT_mod.sceneHeight);
+                    stageTheEventSourceNodeBelongs.setScene(scene);
+        		} catch (IOException e1) {
+        			e1.printStackTrace();
+        		}
+        	}
+        });
     
        //gestione azione al click sull'hyperlink relativo alla pagina iniziale
-         hlPaginaIniziale.setOnAction(new EventHandler<ActionEvent>() {
-	@Override public void handle(ActionEvent e){
-                try {
-                    //cattura lo stage corrente
-                Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)e.getSource()).getScene().getWindow();
-                //carica il file fxml contenente la pagina da aprire
-                BorderPane root = FXMLLoader.load(getClass().getResource("fxml/PaginaIniziale.fxml")); 
-                //istanzia una nuova scene passandogli come parametro il borderpane e le dimensioni
-                  Scene scene = new Scene(root,AlgaT_mod.sceneWidth,AlgaT_mod.sceneHeight);
-                  //setta la scene dello stage con la nuova scene della pagina iniziale
-                stageTheEventSourceNodeBelongs.setScene(scene);
-            } catch (IOException ex) {
-                Logger.getLogger(PaginaInizialeController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-});
-        
-    }  
+       hlPaginaIniziale.setOnAction(new EventHandler<ActionEvent>() {
+    	   @Override public void handle(ActionEvent e){
+    		   try {
+    			   //cattura lo stage corrente
+    			   Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)e.getSource()).getScene().getWindow();
+    			   //carica il file fxml contenente la pagina da aprire
+    			   BorderPane root = FXMLLoader.load(getClass().getResource("fxml/PaginaIniziale.fxml")); 
+    			   //istanzia una nuova scene passandogli come parametro il borderpane e le dimensioni
+    			   Scene scene = new Scene(root,AlgaT_mod.sceneWidth,AlgaT_mod.sceneHeight);
+    			   //setta la scene dello stage con la nuova scene della pagina iniziale
+    			   stageTheEventSourceNodeBelongs.setScene(scene);
+    		   } catch (IOException ex) {
+    			   Logger.getLogger(PaginaInizialeController.class.getName()).log(Level.SEVERE, null, ex);
+    		   }
+    	   }
+       });
+	}  
     
     //imposta il titolo in base al tutorial 1 o 2
     public void setData(int data) {
@@ -122,7 +115,7 @@ public class TutorialController implements Initializable {
             btnFind.setDisable(false);
             btnInsert.setDisable(true);
             btnDelete.setDisable(true);
-            //genera un albero che verra'  visualizzato subito all'apertura del tutorial
+            //genera un albero che verra' visualizzato subito all'apertura del tutorial
             this.generaAlbero();
         }else{
             txtTitle.setText("Tutorial 2 - Inserimento e Cancellazione");
@@ -133,32 +126,32 @@ public class TutorialController implements Initializable {
     }
     
     public void btnFind_Clicked(){
-       //catturo il valore inserito dall'utente nel TextField
-       String valore= txtValore.getText();
-        //converto la stringa in intero per poter passare il valore alla funzione treeFind() che mi ritornera'  un messaggio
-       String messaggio = rbt.treeFind(Integer.parseInt(valore));
-       //visualizzo il messaggio restituito nell'apposito spazio
-       txtComments.setText(messaggio);
-       txtValore.setText("");
+    	//catturo il valore inserito dall'utente nel TextField
+    	String valore= txtValore.getText();
+        //converto la stringa in intero per poter passare il valore alla funzione treeFind() che mi ritornera' un messaggio
+    	String messaggio = rbt.treeFind(Integer.parseInt(valore));
+    	//visualizzo il messaggio restituito nell'apposito spazio
+    	txtComments.setText(messaggio);
+    	txtValore.setText("");
     }
     
     //i pulsanti avanti e indietro permettono l'esecuzione step by step dell'azione (ricerca/inseriemento/cancellazione) selezionata 
     public void btnBack_Clicked(){
-       if(c > -1) {
+    	if(c > -1) {
         if(matrice[h][1] == 0) { 
-        //se l'ultima azione è stata una cancelazione allora reinserisco nell'albero il numero cancellato
+        //se l'ultima azione e' stata una cancellazione allora reinserisco nell'albero il numero cancellato
         	rbt.treeInsert(matrice[h][0],txtComments,txtCommentsHidden);
         	this.ridisegna();
         	System.out.println(matrice[h][0]);
         }else {									
-        //se è un inserimento allora cancello il numero inserito
+        //se e' un inserimento allora cancello il numero inserito
         	rbt.treeDelete(matrice[h][0],txtComments,txtCommentsHidden);		
         	this.ridisegna();
         	System.out.println(matrice[h][0]);
         }
         h--;
         //con h-- "punto" all'azione precedente nel caso voglia cambiare anche quella
-    }
+    	}
     }
     
     public void btnForward_Clicked(){
@@ -177,17 +170,17 @@ public class TutorialController implements Initializable {
     	btnInsert.setDisable(true);
         //catturo il valore inserito dall'utente nel TextField
         String valore= txtValore.getText();
-        //converto la stringa in intero per poter passare il valore alla funzione treeInsert() che mi ritornerà un messaggio
+        //converto la stringa in intero per poter passare il valore alla funzione treeInsert() che mi ritornera' un messaggio
         rbt.treeInsert(Integer.parseInt(valore),txtComments,txtCommentsHidden);
         //visualizzo il messaggio restituito nell'apposito spazio
         txtValore.setText("");
         this.ridisegna();
         //ridisegno l'albero
         //qui registro l'azione inserimento nella matrice
-        	c = h + 1;
-        	h = c;
-        	matrice[c][0] = Integer.parseInt(valore);
-        	matrice[c][1] = 1;// l'1 indica l'inserimento        
+        c = h + 1;
+        h = c;
+        matrice[c][0] = Integer.parseInt(valore);
+        matrice[c][1] = 1;// l'1 indica l'inserimento        
     }
     
     public void btnDelete_Clicked(){
@@ -196,11 +189,10 @@ public class TutorialController implements Initializable {
     	btnInsert.setDisable(true);
         //catturo il valore inserito dall'utente nel TextField
         String valore= txtValore.getText();
-        //converto la stringa in intero per poter passare il valore alla funzione treeDelete() che mi ritornerà un messaggio
+        //converto la stringa in intero per poter passare il valore alla funzione treeDelete() che mi ritorner�a' un messaggio
         rbt.treeDelete(Integer.parseInt(valore),txtComments,txtCommentsHidden);
         //visualizzo il messaggio restituito nell'apposito spazio
         txtValore.setText("");
-       
         //ridisegno l'albero
         this.ridisegna();
         //qui registro l'azione cancella nella matrice
@@ -208,16 +200,13 @@ public class TutorialController implements Initializable {
         h = c;
         matrice[c][0] = Integer.parseInt(valore);
         matrice[c][1] = 0; //lo 0 indica la cancellazione
-        
     }
     
     public void ridisegna() {
     	GraficaAlbero tree= new GraficaAlbero();
         Group group= new Group();
-        /*
-        *vado a disegnare l'albero rbt, la funzione DisegnaAlbero mi ritorna un Group che contiene tutti gli elementi per        
-        * la visualizzazione grafica dell'albero
-        */
+        /*vado a disegnare l'albero rbt, la funzione DisegnaAlbero mi ritorna un Group che contiene
+         *tutti gli elementi per la visualizzazione grafica dell'albero*/
         group = tree.DisegnaAlbero(rbt, group);
         //pulisco il Pane per poi riempirlo con il nuovo Group creato
         pnTree.getChildren().clear();       
@@ -227,14 +216,16 @@ public class TutorialController implements Initializable {
     public void generaAlbero(){
     	//istanzio una nuova classe RedBlackTree e vado a creare un albero tramite la funzione treeInsert()
         rbt = new RedBlackTree();
-        rbt.treeInsert(12,txtComments,txtCommentsHidden);
+        rbt.treeInsert(5,txtComments,txtCommentsHidden);
+        rbt.treeInsert(3,txtComments,txtCommentsHidden);
         rbt.treeInsert(7,txtComments,txtCommentsHidden);
-        
-       //vado a disgnare l'albero nel Pane
-       GraficaAlbero tree= new GraficaAlbero();
-       Group group= new Group();
-       group = tree.DisegnaAlbero(rbt, group);  
-       pnTree.getChildren().add(group);
+        rbt.treeInsert(1,txtComments,txtCommentsHidden);
+        rbt.treeInsert(2,txtComments,txtCommentsHidden);
+        rbt.treeInsert(8,txtComments,txtCommentsHidden);
+        //vado a disgnare l'albero nel Pane
+        GraficaAlbero tree= new GraficaAlbero();
+        Group group= new Group();
+        group = tree.DisegnaAlbero(rbt, group);  
+        pnTree.getChildren().add(group);
     }
-       
 }

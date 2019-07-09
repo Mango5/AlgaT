@@ -14,44 +14,38 @@ public class RedBlackTree {
 	public RedBlackTree(){         
 		this.root = null;
 	}
+	
 	//setto la radice e imposto il colore a BLACK
 	public void setRoot(Nodo root){
              this.root = root;
              this.root.color = BLACK;
-        }
-	
+    }
 	 
     //ritorna il nodo se nell'albero con radice root e' presente un nodo con chiave id
     public Nodo find(int id){
-            Nodo current = root; //la ricerca parte dalla radice
-            while(current!=null){
-                    if(current.key==id){ //se il nodo corrente ha chiave id; ritorno il nodo corrente
-                            return current;
-                    }else if(id < current.key){
-                            current = current.left;//scendo nel ramo sx se la chiave che stiamo cercando e' minore della chiave del nodo corrente
-                    }else{
-                            current =  current.right;//scendo nel ramo dx se la chiave che stiamo cercando e' maggiore della chiave del nodo corrente
-                    }
+    	Nodo current = root; //la ricerca parte dalla radice
+        while(current!=null){
+        	if(current.key==id){ //se il nodo corrente ha chiave id; ritorno il nodo corrente
+        		return current;
+            }else if(id < current.key){
+            	current = current.left;//scendo nel ramo sx se la chiave che stiamo cercando e' minore della chiave del nodo corrente
+            }else{
+            	current =  current.right;//scendo nel ramo dx se la chiave che stiamo cercando e' maggiore della chiave del nodo corrente
             }
-            return null;
+        }
+        return null;
     }
-	
 	
     public String treeFind(int key){
         //cerco se nell'albero e' presente un nodo con chiave key
         Nodo find =  find(key);
-       if(find != null){
-           return "Il nodo con chiave " + key + " e' stato trovato";
-       }
-       return "Nell'albero non esiste un nodo con chiave " + key;
+        if(find != null){
+        	return "Il nodo con chiave " + key + " e' stato trovato";
+        }
+        return "Nell'albero non esiste un nodo con chiave " + key;
     }  
         
-	
-     
-        
-   
-    
-    public String link(Nodo p, Nodo u, int x) {
+	public String link(Nodo p, Nodo u, int x) {
     	String messaggio = "";
     	if (u != null) {
     		u.parent = p;
@@ -80,11 +74,11 @@ public class RedBlackTree {
     
     public void treeDelete(int x,Text txtComments,Text txtCommentsHidden) {
     	txtComments.setText("");
-         //cerco se nell'albero è presente un nodo con chiave key
+    	//cerco se nell'albero e' presente un nodo con chiave key
     	Nodo u = this.find(x);
         //se ho trovato un nodo 
     	if (u!= null) {
-    		if (u == this.root && u.left == null && u.right == null) { //se u è il nodo radice di un albero con un solo nodo
+    		if (u == this.root && u.left == null && u.right == null) { //se u e' il nodo radice di un albero con un solo nodo
     			this.root = null;
     			txtComments.setText("la radice viene settata a null e l'albero non esiste piu'");
     		}
@@ -98,9 +92,9 @@ public class RedBlackTree {
     				u = s;
     			}
     			Nodo t;
-    			if (u.left != null && u.right == null) { //se u ha il figlio sx mentre il figlio dx è null
+    			if (u.left != null && u.right == null) { //se u ha il figlio sx mentre il figlio dx e' null
     				t = u.left;
-    			}else {  //se u ha il figlio dx mentre il figlio sx è null
+    			}else {  //se u ha il figlio dx mentre il figlio sx e' null
     				t = u.right;
     				txtComments.setText(txtComments.getText()+link(u.parent, t, x));
                    //ribilancio l'albero tramite la chiamata alla funzione deleteFixup()
@@ -127,10 +121,12 @@ public class RedBlackTree {
     			u = null;
     		}
     	}
+    	else
+			txtComments.setText("non esiste un nodo con chiave " + x);
     }
     
     //funzione che permette di ribilanciare i colori dei nodi dell'albero dopo la cancellazione di un nodo
-     protected String deleteFixup(Nodo t){
+    protected String deleteFixup(Nodo t){
     	String messaggio = "";
     	while (t != this.root && t.color == BLACK) {
     		Nodo p = t.parent;
@@ -226,110 +222,98 @@ public class RedBlackTree {
     }
 		
 	
-    //funzione che applica la rotazione sinistra su un nodo (@param node);
-    protected Nodo leftRotate(Nodo node)
-    {
-        //assegno a y il figlio dx di node
-	Nodo y = node.right;
+    //funzione che applica la rotazione sinistra su un nodo (node);
+    protected Nodo leftRotate(Nodo node){
+    	//assegno a y il figlio dx di node
+    	Nodo y = node.right;
         //assegno al figlio dx di node il figlio sx di y
-	node.right = y.left;
-	if (y.left != null)
-	    y.left.parent = node;
-
-	//y  diventa la radice del sottoalbero per il quale x era la radice
-	y.parent = node.parent;
-	
-	/*Se node e' la radice dell'intero albero,
+    	node.right = y.left;
+    	if (y.left != null)
+    		y.left.parent = node;
+    	//y  diventa la radice del sottoalbero per il quale x era la radice
+    	y.parent = node.parent;
+    	/*Se node e' la radice dell'intero albero,
            y diventera'� la radice, 
           altrimenti y diventera'� il figlio del genitore del sottoalbero.
         */
-	if (root == node)
-	    root = y;
-	else {
-	    if (node == node.parent.left)
-		node.parent.left = y;
-	    else
-		node.parent.right = y;
+    	if (root == node)
+    		root = y;
+    	else {
+    		if (node == node.parent.left)
+    			node.parent.left = y;
+    		else
+    			node.parent.right = y;
         }
-	// Ricollego i nodi y e node.
-	y.left = node;
-	node.parent = y;
+    	// Ricollego i nodi y e node.
+    	y.left = node;
+    	node.parent = y;
         return y;
     }
     
     
-   //funzione che applica la rotazione sinistra su un nodo (@param node);
-    protected Nodo rightRotate(Nodo node)
-   {
+   //funzione che applica la rotazione sinistra su un nodo (node);
+    protected Nodo rightRotate(Nodo node){
         //assegno a y il figlio sx di node
-	Nodo y = node.left;
-        // assegno al figlio sx di node il figlio dx di y
-	node.left = y.right;
-	if (node.left != null)
-	    y.right.parent = node;
-
-	y.parent = node.parent;
-
-	y.right = node;
-	node.parent = y;
-
-	if (root == node)
-	    root = y;
+    	Nodo y = node.left;
+        //assegno al figlio sx di node il figlio dx di y
+    	node.left = y.right;
+    	if (node.left != null)
+    		y.right.parent = node;
+    	y.parent = node.parent;
+    	y.right = node;
+    	node.parent = y;
+    	if (root == node)
+    		root = y;
         else{
-	    if (y.parent.left == node)
-		y.parent.left = y;
-	    else
-		y.parent.right = y;
-        }
+        	if (y.parent.left == node)
+        		y.parent.left = y;
+        	else
+        		y.parent.right = y;
+        	}
        return y;
    }
     
 
     public void treeInsert(int x,Text txtComments,Text txtCommentsHidden) {
-        txtComments.setText("");
+    	txtComments.setText("");
         //istanzio un nuovo oggetto Nodo con chiave x
         Nodo n = new Nodo(x);
-        //se la radice dell'albero è null
-       if(this.root == null) {
-           //imposto il nodo n come la radice dell'albero
-    	   this.setRoot(n);
-    	   txtComments.setText("La radice e' stata settata a " + x);
-       }
-       else {
-    	   Nodo p = null;
-    	   Nodo u = this.root;
-    	   while (u != null && u.key != x) {
-    		   p = u;
-    		   if (x < u.key)
-    			   u = u.left;
-    		   else
-    			   u = u.right;
-    	   }
-    	   if (u != null && u.key == x)
-    		   u.key = x;
-    	   else {
-    		  final Nodo k=p,k1=n;
-    		  Thread one=new Thread() {
-    			  public void run(){
-    				  txtComments.setText(txtComments.getText()+link(k, k1, x)); 
-    			  }
-    		  };
-    		  one.start();
-    		  Thread two=new Thread(new Runnable() {
-				@Override
-				public void run() {
-					 try {
-						    
-							Thread.sleep(100);
-							 //ribilancio l'albero tramite la chiamata alla funzione insertFixup()
-		    				 
-							txtCommentsHidden.setText(txtCommentsHidden.getText()+insertFixup(k1));
-							
+        //se la radice dell'albero e' null
+        if(this.root == null) {
+        	//imposto il nodo n come la radice dell'albero
+        	this.setRoot(n);
+        	txtComments.setText("La radice e' stata settata a " + x);
+        }
+        else {
+        	Nodo p = null;
+        	Nodo u = this.root;
+        	while (u != null && u.key != x) {
+        		p = u;
+        		if (x < u.key)
+        			u = u.left;
+        		else
+        			u = u.right;
+        	}
+        	if (u != null && u.key == x)
+        		u.key = x;
+        	else {
+        		final Nodo k=p,k1=n;
+        		Thread one=new Thread() {
+        			public void run(){
+        				txtComments.setText(txtComments.getText()+link(k, k1, x)); 
+        			}
+        		};
+        		one.start();
+        		Thread two=new Thread(new Runnable() {
+    			@Override
+					public void run() {
+    				try {
+    					Thread.sleep(100);
+    					//ribilancio l'albero tramite la chiamata alla funzione insertFixup()
+    					txtCommentsHidden.setText(txtCommentsHidden.getText()+insertFixup(k1));	
 						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-					
 				}
     		  });
     		  two.start();
@@ -411,53 +395,4 @@ public class RedBlackTree {
        }
        return messaggio;
    }
-      
-    	
-   
-        
-        
-	
-	
-  //ALTEZZA NERA DELL'ALBERO
-    //ritorna il numero di nodi black nel percorso dal nodo dato a qualsiasi foglia
-    //BlackHeightException: se il numero di nodi black sul percorso lungo il figlio sx ad arivare a qualsiasi foglia e' diverso da 
-       //quello sul percorso lungo il figlio dx
-     public int blackHeight(Nodo z)
-    {
-	if (z == null)
-	    return 0;
-
-	int left = blackHeight((Nodo) z.left);
-	int right = blackHeight((Nodo) z.right);
-	if (left == right)
-	    if (z.color == BLACK)
-		return left + 1;
-	    else
-		return left;
-	else            
-	    throw new BlackHeightException();
-    }
-       
-    //Restituisce il numero di nodi neri dalla radice fino a qualsiasi foglia. 
-     //Il valore dovrebbe essere lo stesso per tutti i percorsi.
-    public int blackHeight()
-    {
-	return blackHeight((Nodo) root);
-    }	
-    
-    
-    // Eccezione lanciata da se l'altezza nera di un nodo non e' definita correttamente
-    public static class BlackHeightException extends RuntimeException
-    {
-    }
-    
-    /*public static void main(String[] args) throws Exception {
-    	RedBlackTree a = new RedBlackTree();
-    	a.treeInsert(1);
-    	a.treeInsert(2);
-    	a.treeInsert(3);
-    	a.treeDelete(3);
-    	a.treeDelete(2);
-    }*/
-    
 }
