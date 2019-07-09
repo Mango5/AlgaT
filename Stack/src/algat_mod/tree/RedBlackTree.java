@@ -1,4 +1,4 @@
-package Stack.src.algat_mod.tree;
+package algat_mod.tree;
 
 
 import java.util.Stack;
@@ -15,6 +15,9 @@ public class RedBlackTree {
     
 	public RedBlackTree(){         
 		this.root = null;
+	}
+	public RedBlackTree(Nodo a) {
+		this.root=a;
 	}
 	//setto la radice e imposto il colore a BLACK
 	public void setRoot(Nodo root){
@@ -281,9 +284,12 @@ public class RedBlackTree {
         Nodo n = new Nodo(x);
         //se la radice dell'albero è null
        if(this.root == null) {
+    	   RedBlackTree s=new RedBlackTree();
+    	   treeStack.push(s);
            //imposto il nodo n come la radice dell'albero
     	   this.setRoot(n);
-	   treeStack.push(this);
+    	   s=new RedBlackTree(clonaAlbero(root));
+    	   treeStack.push(s);
     	   txtComments.setText("La radice e' stata settata a " + x);
        }
        else {
@@ -296,7 +302,8 @@ public class RedBlackTree {
     		   else
     			   u = u.right;
     	   }
-	   treeStack.push(this);
+    	   RedBlackTree s=new RedBlackTree(clonaAlbero(root));
+	   treeStack.push(s);
     	   if (u != null && u.key == x)
     		   u.key = x;
     	   else {
@@ -331,7 +338,11 @@ public class RedBlackTree {
     		   n = n.parent;
        }
    }
-   
+   public Nodo clonaAlbero(Nodo root) {
+	   Nodo nuovoNodo=new Nodo(root.key);
+	   clonaAlbero(root,nuovoNodo);
+	   return nuovoNodo;
+   }  
    public void clonaAlbero(Nodo root,Nodo cloneRoot) {
 	   if(root==null) {
 		   return;
